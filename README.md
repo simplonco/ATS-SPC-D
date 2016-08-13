@@ -1,5 +1,7 @@
 # ATS SPC - Groupe D - Dispositif 2
 
-* Chadi
-* Antoine
-* Berivan
+## Authors
+
+* ISSA Berivan
+* HAMOUI Antoine
+* SABA Chadi
