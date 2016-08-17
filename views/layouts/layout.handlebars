@@ -1,0 +1,64 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Accenture App. </title>
+
+    <link rel="stylesheet" href="/css/bootstrap.css" />
+    <link rel="stylesheet" href="/css/bootstrap-datepicker3.standalone.css" />
+    <link rel="stylesheet" href="/css/style.css" />
+
+
+    <script type="text/javascript" src="/js/jquery-3.1.0.js"></script>
+    <script type="text/javascript" src="/js/moment.js"></script>
+    <script type="text/javascript" src="/js/transition.js"></script>
+    <script type="text/javascript" src="/js/collapse.js"></script>
+    <script type="text/javascript" src="/js/bootstrap.js"></script>
+    <script type="text/javascript" src="/js/bootstrap-datepicker.js"></script>
+
+  </head>
+  <body>
+    <div class="container">
+          <div class="header clearfix">
+            <nav>
+              <ul class="nav nav-pills pull-right">
+                {{#if user}}
+                  <li role="presentation"><a href="/">Dashboard</a></li>
+                  <li role="presentation"><a href="/users/add">Add Day</a></li>
+                  <li role="presentation"><a href="/users/logout">Logout</a></li>
+                {{else}}
+                  <li role="presentation"><a href="/users/login">Login</a></li>
+                  <li role="presentation"><a href="/users/register">Register</a></li>
+                {{/if}}
+              </ul>
+            </nav>
+            <a href="http://www.accenture.com/fr-fr/" target="_blank">
+                <img src="/images/logo-accenture.png" alt="Logo Accenture">
+            </a>
+            <h4 class="text-muted">Télétravail App.</h4>
+          </div>
+          <div class="row">
+            <div class="col-lg-12">
+              {{#if success_msg}}
+                <div class="alert alert-success">{{success_msg}}</div>
+              {{/if}}
+
+              {{#if error_msg}}
+                <div class="alert alert-danger">{{error_msg}}</div>
+              {{/if}}
+
+              {{#if error}}
+                <div class="alert alert-danger">{{error}}</div>
+              {{/if}}
+
+              {{{body}}}
+            </div>
+           </div>
+          <footer class="footer">
+            <p><img src="/images/tour-eiffel.png" alt="Tour Eiffel"> &copy; 2016 Accenture, Inc.</p>
+          </footer>
+
+        </div> <!-- /container -->
+
+  </body>
+
+  </html>
