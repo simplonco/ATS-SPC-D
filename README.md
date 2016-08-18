@@ -1,9 +1,9 @@
-# ATS SPC - Groupe D - Dispositif 2
+### ATS SPC - Groupe D - Dispositif 2
 
 ## Authors
 
-* ISSA Berivan
-* HAMOUI Antoine
-* SABA Chadi
+* *ISSA Berivan*
+* *HAMOUI Antoine*
+* *SABA Chadi*
 
 
