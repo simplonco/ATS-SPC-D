@@ -1,4 +1,7 @@
 # ATS SPC - Groupe D - Dispositif 2
+![Image of Yaktocat](https://octodex.github.com/images/ATS-SPC-D (1).jpg)
+
+
 
 ## Authors
 
@@ -6,6 +9,3 @@
 * *HAMOUI Antoine*
 * *SABA Chadi*
 
-## How to setup and run the app
-
-_TODO.._
