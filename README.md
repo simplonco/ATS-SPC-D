@@ -2,8 +2,8 @@
 
 
 
-![GitHub Logo](/images/ATS-SPC-D (1).jpg)
-Format: ![Alt Text](url)
+![ATS-SPC-D (1).jpg](/images/ATS-SPC-D (1).jpg)
+Format: ![ATS-SPC-D (1).jpg](url)
 
 
 
