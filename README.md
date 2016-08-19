@@ -1,5 +1,5 @@
 # ATS SPC - Groupe D - Dispositif 2
-![Image of Yaktocat](https://octodex.github.com/images/ATS-SPC-D (1).jpg)
+![ATS-SPC-D (1).jpg](https://octodex.github.com/images/ATS-SPC-D (1).jpg)
 
 
 
