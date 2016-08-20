@@ -6,7 +6,7 @@
 # ATS SPC - Groupe D - Dispositif 2
 Authors
 
-HAMOUI Antoine-PHP|SABA Chadi-JAVASCRIP|ISSA amina 
+HAMOUI Antoine-PHP|SABA Chadi-JAVASCRIPT|ISSA amina 
 ------------------------- | -------------------------| -------------------------
 1-|1-|1-
 2-|2-|2-
