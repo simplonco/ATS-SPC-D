@@ -12,4 +12,4 @@ _TODO.._
 
 ## Demandes de télétravail
 
-![Mockup 1](ATS-SPC-D \(1\).jpg)
+![Mockup](ATS-SPC-D.jpg)
