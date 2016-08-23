@@ -1,0 +1,5 @@
+{"_id":{"$oid":"57b9ef45567c514701a87e32"},"name":"michel","password":"0770","admin":false}
+{"_id":{"$oid":"57b9ef6c567c514701a87e33"},"name":"nicolas","password":"0770","admin":false}
+{"_id":{"$oid":"57b9ef8e567c514701a87e34"},"name":"chadi","password":"0770","admin":true}
+{"_id":{"$oid":"57b9ef9c567c514701a87e35"},"name":"Fadi","password":"0770","admin":false}
+{"_id":{"$oid":"57b9f010567c514701a87e36"},"name":"evan","password":"0770","admin":false,"date":{"$date":"2016-08-21T18:16:48.984Z"}}

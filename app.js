@@ -4,90 +4,136 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var exphbs = require('express-handlebars');
-var expressValidator = require('express-validator');
-var flash = require('connect-flash');
-var session = require('express-session');
-var passport = require('passport');
-var LocalStrategy = require('passport-local').Strategy;
-var mongo = require('mongodb');
-var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/loginapp');
-var db = mongoose.connection;
-
+var MongoClient = require('mongodb').MongoClient;
+var assert = require('assert');
+var app = express();
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
 
-var app = express();
+app.get('/login', function (req, res) {
+    var name = req.query.username;
+    var password = req.query.password;
+    console.log(name + '' + password);
+    MongoClient.connect('mongodb://localhost:27017/chadi', function (err, db) {
+        assert.equal(err, null);
+        var query = {"name": name, "password": password}
+        var cursor = db.collection('client').find(query);
+        cursor.forEach(function (doc) {
+            var match = doc;
+            if (match.admin == true) {//check if the user is admin
+                //  TODO : index render to RH page
+                console.log(match.name + ' : this user is Admin');
 
+            } else {
+                console.log('this user is Client');
+                //  TODO : index render to USER
+            }
+        }, function (err) {
+            assert.equal(err, null);
+            return db.close();
+
+        });
+        res.end();
+        /*
+         if (err){
+         console.log('error');
+         }else{
+         console.log(doc);
+
+         } );*/
+//db.collection("client").insertOne(query,function(err, res){
+        // console.log("inserted :".res.insertedId+ "\n");
+    })
+});
+/*MongoClient.connect('mongodb://localhost:27017/chadi',function (err, db) {
+ assert.equal(err, null);
+var query = {"": ""};
+ var cursor = db.collection('client').find();
+ var result;
+ cursor.forEach(
+ function (doc) {
+ result+="name " + doc.name + " Has password" + doc.password + "admin" + doc.admin ;
+ console.log("name " + doc.name + " Has password" + doc.password + "admin" + doc.admin);
+ },
+ function (err) {
+ assert.equal(err, null);
+ return db.close();
+ }
+ );
+ console.log(result);
+ })
+ */
+/*db.collection('companies').find(query).toArray(function(err,docs){
+ assert.equal(err, null);
+ assert.notEqual(docs.length, 0);
+
+ docs.forEach(function(doc) {
+ console.log( doc.name + " is a " + doc.category_code + " company." );
+ });
+ db.close();
+ });
+ })
+ */
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
-//app.set('view engine', 'jade');
-app.engine('handlebars', exphbs({defaultLayout: 'layout'}));
-app.set('view engine', 'handlebars');
-
+app.set('view engine', 'jade');
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
-
-// Set Static Folder
 app.use(express.static(path.join(__dirname, 'public')));
-
-// Express Session
-app.use(session({
-  secret: 'secret',
-  saveUninitialized: true,
-  resave: true
-}));
-
-// Passport init
-app.use(passport.initialize());
-app.use(passport.session());
-
-
-// Express Validator
-app.use(expressValidator({
-  errorFormatter: function(param, msg, value) {
-    var namespace = param.split('.')
-        , root    = namespace.shift()
-        , formParam = root;
-
-    while(namespace.length) {
-      formParam += '[' + namespace.shift() + ']';
-    }
-    return {
-      param : formParam,
-      msg   : msg,
-      value : value
-    };
-  }
-}));
-
-// Connect Flah
-app.use(flash());
-
-// Global Vars
-app.use(function (req, res, next){
-  res.locals.success_msg = req.flash('success_msg');
-  res.locals.error_msg = req.flash('error_msg');
-  res.locals.error = req.flash('error');
-  res.locals.user = req.user || null;
-  next();
-});
 
 app.use('/', routes);
 app.use('/users', users);
 
-// Set Port
-app.set('port', (process.env.PORT || 3000));
 
-app.listen(app.get('port'), function(){
-  console.log('Server started on port: '+app.get('port'));
+app.listen(3000, function () {
+    console.log('hello');
+})
+
+/*
+ // catch 404 and forward to error handler
+ app.use(function(req, res, next) {
+ var err = new Error('Not Found');
+ err.status = 404;
+ next(err);
+ });
+ // error handlers
+ // development error handler
+ // will print stacktrace
+ if (app.get('env') === 'development') {
+ app.use(function(err, req, res, next) {
+ res.status(err.status || 500);
+ res.render('error', {
+ message: err.message,
+ error: err
+ });
+ });
+ }
+
+ // production error handler
+ // no stacktraces leaked to user
+ app.use(function(err, req, res, next) {
+ res.status(err.status || 500);
+ res.render('error', {
+ message: err.message,
+ error: {}
+ });
+ });*/
+app.get('/result', function () {
+    MongoClient.connect('mongodb://localhost:27017/chadi', function (err, db) {
+        assert.equal(err, null);
+        // var query = {"name": name, "password": password}
+        var cursor = db.collection('students').find();
+        cursor.skip(6);
+        cursor.limit(2);
+        cursor.sort({"grade": 1});
+        console.log(cursor);
+    });
 });
 
 module.exports = app;

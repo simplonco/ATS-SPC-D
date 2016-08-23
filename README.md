@@ -1,15 +1,10 @@
-# ATS SPC - Groupe D - Dispositif 2
+Accenture Project
+=============
+sub-heading
+------------
+## another deeper heading
 
-## Authors
-
-- HAMOUI Antoine: PHP
-- SABA Chadi: JavaScript
-- ISSA Amina: _?_
-
-## Setup
-
-_TODO.._
-
-## Demandes de télétravail
-
-![Mockup](ATS-SPC-D.jpg)
+=================
+## Database name : chadi
+----------------
+collection name :  client
