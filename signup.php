@@ -16,11 +16,11 @@ if(isset($_POST['btn-signup']))
 	$email = trim($_POST['txtemail']);
 	$upass = trim($_POST['txtpass']);
 	$code = md5(uniqid(rand()));
-	
+
 	$stmt = $reg_user->runQuery("SELECT * FROM tbl_users WHERE userEmail=:email_id");
 	$stmt->execute(array(":email_id"=>$email));
 	$row = $stmt->fetch(PDO::FETCH_ASSOC);
-	
+
 	if($stmt->rowCount() > 0)
 	{
 		$msg = "
@@ -33,12 +33,12 @@ if(isset($_POST['btn-signup']))
 	else
 	{
 		if($reg_user->register($uname,$email,$upass,$code))
-		{			
-			$id = $reg_user->lasdID();		
+		{
+			$id = $reg_user->lasdID();
 			$key = base64_encode($id);
 			$id = $key;
-			
-			$message = "					
+
+			$message = "
 						Hello $uname,
 						<br /><br />
 						Welcome to Accenture teletravail application!<br/>
@@ -47,22 +47,22 @@ if(isset($_POST['btn-signup']))
 						<a href='http://localhost/teletravail/verify.php?id=$id&code=$code'>Click HERE to Activate :)</a>
 						<br /><br />
 						Thanks,";
-						
+
 			$subject = "Confirm Registration";
-						
-			$reg_user->send_mail($email,$message,$subject);	
+
+			$reg_user->send_mail($email,$message,$subject);
 			$msg = "
 					<div class='alert alert-success'>
 						<button class='close' data-dismiss='alert'>&times;</button>
 						<strong>Success!</strong>  We've sent an email to $email.
-                    Please click on the confirmation link in the email to create your account. 
+                    Please click on the confirmation link in the email to create your account.
 			  		</div>
 					";
 		}
 		else
 		{
 			echo "sorry , Query could no execute...";
-		}		
+		}
 	}
 }
 ?>
