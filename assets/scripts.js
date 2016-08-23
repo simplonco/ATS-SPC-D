@@ -1,70 +1,70 @@
 $(function() {
     // Side Bar Toggle
     $('.hide-sidebar').click(function() {
-	  $('#sidebar').hide('fast', function() {
-	  	$('#content').removeClass('span9');
-	  	$('#content').addClass('span12');
-	  	$('.hide-sidebar').hide();
-	  	$('.show-sidebar').show();
-	  });
-	});
+        $('#sidebar').hide('fast', function() {
+            $('#content').removeClass('span9');
+            $('#content').addClass('span12');
+            $('.hide-sidebar').hide();
+            $('.show-sidebar').show();
+        });
+    });
 
-	$('.show-sidebar').click(function() {
-		$('#content').removeClass('span12');
-	   	$('#content').addClass('span9');
-	   	$('.show-sidebar').hide();
-	   	$('.hide-sidebar').show();
-	  	$('#sidebar').show('fast');
-	});
+    $('.show-sidebar').click(function() {
+        $('#content').removeClass('span12');
+        $('#content').addClass('span9');
+        $('.show-sidebar').hide();
+        $('.hide-sidebar').show();
+        $('#sidebar').show('fast');
+    });
 });
 
-$(function () {
-  function JoursFeries(an) {
-    var JourAn = new Date(an, "00", "01")
-    var FeteTravail = new Date(an, "04", "01")
-    var Victoire1945 = new Date(an, "04", "08")
-    var FeteNationale = new Date(an,"06", "14")
-    var Assomption = new Date(an, "07", "15")
-    var Toussaint = new Date(an, "10", "01")
-    var Armistice = new Date(an, "10", "11")
-    var Noel = new Date(an, "11", "25")
-    var SaintEtienne = new Date(an, "11", "26")
+$(function() {
+    function JoursFeries(an) {
+        var JourAn = new Date(an, "00", "01");
+        var FeteTravail = new Date(an, "04", "01");
+        var Victoire1945 = new Date(an, "04", "08");
+        var FeteNationale = new Date(an, "06", "14");
+        var Assomption = new Date(an, "07", "15");
+        var Toussaint = new Date(an, "10", "01");
+        var Armistice = new Date(an, "10", "11");
+        var Noel = new Date(an, "11", "25");
+        var SaintEtienne = new Date(an, "11", "26");
 
-    var G = an%19
-    var C = Math.floor(an/100)
-    var H = (C - Math.floor(C/4) - Math.floor((8*C+13)/25) + 19*G + 15)%30
-    var I = H - Math.floor(H/28)*(1 - Math.floor(H/28)*Math.floor(29/(H + 1))*Math.floor((21 - G)/11))
-    var J = (an*1 + Math.floor(an/4) + I + 2 - C + Math.floor(C/4))%7
-    var L = I - J
-    var MoisPaques = 3 + Math.floor((L + 40)/44)
-    var JourPaques = L + 28 - 31*Math.floor(MoisPaques/4)
-    var Paques = new Date(an, MoisPaques-1, JourPaques)
-    var VendrediSaint = new Date(an, MoisPaques-1, JourPaques-2)
-    var LundiPaques = new Date(an, MoisPaques-1, JourPaques+1)
-    var Ascension = new Date(an, MoisPaques-1, JourPaques+39)
-    var Pentecote = new Date(an, MoisPaques-1, JourPaques+49)
-    var LundiPentecote = new Date(an, MoisPaques-1, JourPaques+50)
+        var G = an % 19;
+        var C = Math.floor(an / 100);
+        var H = (C - Math.floor(C / 4) - Math.floor((8 * C + 13) / 25) + 19 * G + 15) % 30;
+        var I = H - Math.floor(H / 28) * (1 - Math.floor(H / 28) * Math.floor(29 / (H + 1)) * Math.floor((21 - G) / 11));
+        var J = (an * 1 + Math.floor(an / 4) + I + 2 - C + Math.floor(C / 4)) % 7;
+        var L = I - J;
+        var MoisPaques = 3 + Math.floor((L + 40) / 44);
+        var JourPaques = L + 28 - 31 * Math.floor(MoisPaques / 4);
+        var Paques = new Date(an, MoisPaques - 1, JourPaques);
+        var VendrediSaint = new Date(an, MoisPaques - 1, JourPaques - 2);
+        var LundiPaques = new Date(an, MoisPaques - 1, JourPaques + 1);
+        var Ascension = new Date(an, MoisPaques - 1, JourPaques + 39);
+        var Pentecote = new Date(an, MoisPaques - 1, JourPaques + 49);
+        var LundiPentecote = new Date(an, MoisPaques - 1, JourPaques + 50);
 
-    return new Array(JourAn, VendrediSaint, Paques, LundiPaques, FeteTravail, Victoire1945, Ascension, Pentecote, LundiPentecote, FeteNationale, Assomption, Toussaint, Armistice, Noel, SaintEtienne)
-  }
+        return new Array(JourAn, VendrediSaint, Paques, LundiPaques, FeteTravail, Victoire1945, Ascension, Pentecote, LundiPentecote, FeteNationale, Assomption, Toussaint, Armistice, Noel, SaintEtienne);
+    }
 
-    $( "#datepicker" ).datepicker({
-      dateFormat: "dd-mm-yy",
-      dayNamesMin: [ "Di", "Lu", "Ma", "Me", "Je", "Ve", "Sa" ],
-      monthNamesShort: [ "Janv", "Fevr", "Mars", "Avril", "Mai", "Juin", "Juil", "Aout", "Sept", "Oct", "Nov", "Dec" ],
-      firstDay: 1,
-      startDay:0,
-      yearRange: "2016:2016",
-      minDate: 2,
-      changeMonth: true,
-      beforeShowDay: function(date){
-        var day = date.getDay();
-        var array = JoursFeries(2016);
-        for (var i = 0; i < array.length; i++) {
-              array[i]= jQuery.datepicker.formatDate('dd-mm-yy', array[i]);
+    $("#datepicker").datepicker({
+        dateFormat: "dd-mm-yy",
+        dayNamesMin: ["Di", "Lu", "Ma", "Me", "Je", "Ve", "Sa"],
+        monthNamesShort: ["Janv", "Fevr", "Mars", "Avril", "Mai", "Juin", "Juil", "Aout", "Sept", "Oct", "Nov", "Dec"],
+        firstDay: 1,
+        startDay: 0,
+        yearRange: "2016:2016",
+        minDate: 2,
+        changeMonth: true,
+        beforeShowDay: function(date) {
+            var day = date.getDay();
+            var array = JoursFeries(2016);
+            for (var i = 0; i < array.length; i++) {
+                array[i] = jQuery.datepicker.formatDate('dd-mm-yy', array[i]);
             }
-        var string = jQuery.datepicker.formatDate('dd-mm-yy', date);
-        return [ day != 0 && day !=6 && (array.indexOf(string) == -1 )];
+            var string = jQuery.datepicker.formatDate('dd-mm-yy', date);
+            return [day != 0 && day != 6 && (array.indexOf(string) == -1)];
         }
 
     });

@@ -26,48 +26,46 @@ if (isset($_GET['id']) && isset($_GET['code'])) {
             $stmt->execute();
 
             $msg = "
-		           <div class='alert alert-success'>
-				   <button class='close' data-dismiss='alert'>&times;</button>
-					  <strong>OK !</strong>  The REQUEST is Now Activated : <a href='index.php'>Thanks</a>
-			       </div>
-			       ";
+                    <div class='alert alert-success'>
+                    <button class='close' data-dismiss='alert'>&times;</button>
+                    <strong>OK !</strong>  The REQUEST is Now Activated : <a href='index.php'>Thanks</a>
+                    </div>
+                   ";
         } else {
             $msg = "
-		           <div class='alert alert-error'>
-				   <button class='close' data-dismiss='alert'>&times;</button>
-					  <strong>sorry !</strong>  Your REQUEST is allready Activated..  <a href='index.php'>OK</a>
-			       </div>
-			       ";
+                   <div class='alert alert-error'>
+                     <button class='close' data-dismiss='alert'>&times;</button>
+                     <strong>sorry !</strong>  Your REQUEST is allready Activated..  <a href='index.php'>OK</a>
+                   </div>
+                   ";
         }
     } else {
         $msg = "
-		       <div class='alert alert-error'>
-			   <button class='close' data-dismiss='alert'>&times;</button>
-			   <strong>sorry !</strong>  No REQUEST Found : <a href='index.php'>Login here</a>
-			   </div>
-			   ";
+               <div class='alert alert-error'>
+                 <button class='close' data-dismiss='alert'>&times;</button>
+                 <strong>sorry !</strong>  No REQUEST Found : <a href='index.php'>Login here</a>
+               </div>
+               ";
     }
 }
 
 ?>
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Confirm Request</title>
-    <!-- Bootstrap -->
-    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
-    <link href="bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" media="screen">
-    <link href="assets/styles.css" rel="stylesheet" media="screen">
 
-		 <script src="js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
-  </head>
-  <body id="login">
+<?php require 'header.inc.php'; ?>
+
+<body id="login">
     <div class="container">
-		<?php if (isset($msg)) {
-    echo $msg;
-} ?>
-    </div> <!-- /container -->
+    <?php
+    if (isset($msg)) {
+        echo $msg;
+    }
+    ?>
+    </div>
+    <!-- /container -->
     <script src="vendors/jquery-1.9.1.min.js"></script>
     <script src="bootstrap/js/bootstrap.min.js"></script>
-  </body>
+</body>
+
 </html>
