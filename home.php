@@ -4,59 +4,53 @@ require_once 'class.user.php';
 $user_home = new USER();
 $req = new USER();
 
-if(!$user_home->is_logged_in())
-{
-	$user_home->redirect('index.php');
+if (!$user_home->is_logged_in()) {
+    $user_home->redirect('index.php');
 }
 
-$stmt = $user_home->runQuery("SELECT * FROM tbl_users WHERE userID=:uid");
-$stmt->execute(array(":uid"=>$_SESSION['userSession']));
+$stmt = $user_home->runQuery('SELECT * FROM tbl_users WHERE userID=:uid');
+$stmt->execute(array(':uid' => $_SESSION['userSession']));
 $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
-	if(isset($_POST['btn-request']))
-	{
-		$date = trim($_POST['txtdate']);
-		$message = trim($_POST['txtmessage']);
-		$code = md5(uniqid(rand()));
-		$WeekNumber = date("W", strtotime($date));
+    if (isset($_POST['btn-request'])) {
+        $date = trim($_POST['txtdate']);
+        $message = trim($_POST['txtmessage']);
+        $code = md5(uniqid(rand()));
+        $WeekNumber = date('W', strtotime($date));
 
-    $userid = $row['userID'];
-    $username = $row['userName'];
-    $db = new PDO('mysql:host=localhost;dbname=dbtest;charset=utf8mb4', 'root', 'root');
+        $userid = $row['userID'];
+        $username = $row['userName'];
+        $db = new PDO('mysql:host=localhost;dbname=dbtest;charset=utf8mb4', 'root', 'root');
 
-		$stmt = $db->prepare("SELECT * FROM tbl_request WHERE weekNum=:weekNum");
-		$stmt->execute(array(":weekNum"=>$WeekNumber));
-		$stmt->fetch(PDO::FETCH_ASSOC);
+        $stmt = $db->prepare('SELECT * FROM tbl_request WHERE weekNum=:weekNum');
+        $stmt->execute(array(':weekNum' => $WeekNumber));
+        $stmt->fetch(PDO::FETCH_ASSOC);
 
-		if($stmt->rowCount() > 1)
-			{
-				$msg = "
+        if ($stmt->rowCount() > 1) {
+            $msg = "
 							<div class='alert alert-error'>
 						<button class='close' data-dismiss='alert'>&times;</button>
 							<strong>Sorry !</strong>  You have more than 2 REQUEST this week , Please Try another day
 						</div>
 						";
-			}
-			else
-				{
-		    $stmt = $db->prepare("INSERT INTO `tbl_request` (`date`, `weekNum`, `message`, `userid`, `tokenCode`) VALUES (:date, :weekNum, :message, :userid, :tokenCode)");
-		    $stmt->execute(array(":date"=>$date, ":weekNum"=>$WeekNumber, ":message"=>$message, ":userid"=>$userid, ":tokenCode"=>$code));
+        } else {
+            $stmt = $db->prepare('INSERT INTO `tbl_request` (`date`, `weekNum`, `message`, `userid`, `tokenCode`) VALUES (:date, :weekNum, :message, :userid, :tokenCode)');
+            $stmt->execute(array(':date' => $date, ':weekNum' => $WeekNumber, ':message' => $message, ':userid' => $userid, ':tokenCode' => $code));
 
+            // DEBUG
+            //  $affected_rows = $stmt->rowCount();
+            //  echo "Request succeed: ".$affected_rows." rows affected!";
+            // ---------------
 
-		    // DEBUG
-		    //  $affected_rows = $stmt->rowCount();
-		    //  echo "Request succeed: ".$affected_rows." rows affected!";
-		    // ---------------
+                $stmt = $db->query('SELECT LAST_INSERT_ID()');
+            $lastId = $stmt->fetch(PDO::FETCH_NUM);
+            $lastId = $lastId[0];
+            $id = $lastId;
+            $key = base64_encode($id);
+            $id = $key;
 
-				$stmt = $db->query("SELECT LAST_INSERT_ID()");
-				$lastId = $stmt->fetch(PDO::FETCH_NUM);
-				$lastId = $lastId[0];
-				$id = $lastId;
-				$key = base64_encode($id);
-				$id = $key;
-
-					$mail = '16accenture@gmail.com';
-					$messages = "
+            $mail = '16accenture@gmail.com';
+            $messages = "
 								Dear Madame,
 								<br /><br />
 								I am $username,<br />Please confirm my request for the day: $date<br/><br />
@@ -67,18 +61,18 @@ $row = $stmt->fetch(PDO::FETCH_ASSOC);
 								<br /><br />
 								Thanks,";
 
-					$subject = "Confirm Request Teletravail";
+            $subject = 'Confirm Request Teletravail';
 
-					$req->send_mail($mail,$messages,$subject);
-					$msg = "
+            $req->send_mail($mail, $messages, $subject);
+            $msg = "
 							<div class='alert alert-success'>
 								<button class='close' data-dismiss='alert'>&times;</button>
 								<strong>Success!</strong>  We've sent an email to the HR department.
 		                    it is took 24h to reply, have a great day.
 					  		</div>
 							";
-						}
-		}
+        }
+    }
 ?>
 
 <!DOCTYPE html>
@@ -135,7 +129,9 @@ $row = $stmt->fetch(PDO::FETCH_ASSOC);
         </div>
         <div class="container" id="con">
 
-						<?php if(isset($msg)) echo $msg;  ?>
+						<?php if (isset($msg)) {
+    echo $msg;
+} ?>
 
 			      <form class="form-request" method="post">
 			        <h2 class="form-request-heading">Request Teletravail</h2>

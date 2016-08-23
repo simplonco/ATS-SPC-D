@@ -2,60 +2,51 @@
 require_once 'class.user.php';
 $user = new USER();
 
-if(empty($_GET['id']) && empty($_GET['code']))
-{
-	$user->redirect('index.php');
+if (empty($_GET['id']) && empty($_GET['code'])) {
+    $user->redirect('index.php');
 }
 
+if (isset($_GET['id']) && isset($_GET['code'])) {
+    $id = base64_decode($_GET['id']);
+    $code = $_GET['code'];
 
-if(isset($_GET['id']) && isset($_GET['code']))
-{
-	$id = base64_decode($_GET['id']);
-	$code = $_GET['code'];
+    $statusY = 'Y';
+    $statusN = 'N';
 
-	$statusY = "Y";
-	$statusN = "N";
+    $db = new PDO('mysql:host=localhost;dbname=dbtest;charset=utf8mb4', 'root', 'root');
 
-	$db = new PDO('mysql:host=localhost;dbname=dbtest;charset=utf8mb4', 'root', 'root');
+    $stmt = $db->prepare('SELECT id,validate FROM tbl_request WHERE id=:id AND tokenCode=:code LIMIT 1');
+    $stmt->execute(array(':id' => $id, ':code' => $code));
+    $ro = $stmt->fetch(PDO::FETCH_ASSOC);
+    if ($stmt->rowCount() > 0) {
+        if ($ro['validate'] == $statusN) {
+            $stmt = $db->prepare('UPDATE tbl_request SET validate=:validate WHERE id=:id');
+            $stmt->bindparam(':validate', $statusY);
+            $stmt->bindparam(':id', $id);
+            $stmt->execute();
 
-	$stmt = $db->prepare("SELECT id,validate FROM tbl_request WHERE id=:id AND tokenCode=:code LIMIT 1");
-	$stmt->execute(array(":id"=>$id,":code"=>$code));
-	$ro=$stmt->fetch(PDO::FETCH_ASSOC);
-	if($stmt->rowCount() > 0)
-	{
-		if($ro['validate']==$statusN)
-		{
-			$stmt = $db->prepare("UPDATE tbl_request SET validate=:validate WHERE id=:id");
-			$stmt->bindparam(":validate",$statusY);
-			$stmt->bindparam(":id",$id);
-			$stmt->execute();
-
-			$msg = "
+            $msg = "
 		           <div class='alert alert-success'>
 				   <button class='close' data-dismiss='alert'>&times;</button>
 					  <strong>OK !</strong>  The REQUEST is Now Activated : <a href='index.php'>Thanks</a>
 			       </div>
 			       ";
-		}
-		else
-		{
-			$msg = "
+        } else {
+            $msg = "
 		           <div class='alert alert-error'>
 				   <button class='close' data-dismiss='alert'>&times;</button>
 					  <strong>sorry !</strong>  Your REQUEST is allready Activated..  <a href='index.php'>OK</a>
 			       </div>
 			       ";
-		}
-	}
-	else
-	{
-		$msg = "
+        }
+    } else {
+        $msg = "
 		       <div class='alert alert-error'>
 			   <button class='close' data-dismiss='alert'>&times;</button>
 			   <strong>sorry !</strong>  No REQUEST Found : <a href='index.php'>Login here</a>
 			   </div>
 			   ";
-	}
+    }
 }
 
 ?>
@@ -72,7 +63,9 @@ if(isset($_GET['id']) && isset($_GET['code']))
   </head>
   <body id="login">
     <div class="container">
-		<?php if(isset($msg)) { echo $msg; } ?>
+		<?php if (isset($msg)) {
+    echo $msg;
+} ?>
     </div> <!-- /container -->
     <script src="vendors/jquery-1.9.1.min.js"></script>
     <script src="bootstrap/js/bootstrap.min.js"></script>

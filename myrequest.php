@@ -4,16 +4,15 @@ require_once 'class.user.php';
 $user_home = new USER();
 $req = new USER();
 
-if(!$user_home->is_logged_in())
-{
-	$user_home->redirect('index.php');
+if (!$user_home->is_logged_in()) {
+    $user_home->redirect('index.php');
 }
 
-$stmt = $user_home->runQuery("SELECT * FROM tbl_users WHERE userID=:uid");
-$stmt->execute(array(":uid"=>$_SESSION['userSession']));
+$stmt = $user_home->runQuery('SELECT * FROM tbl_users WHERE userID=:uid');
+$stmt->execute(array(':uid' => $_SESSION['userSession']));
 $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
-	  $userid = $row['userID'];
+      $userid = $row['userID'];
     $username = $row['userName'];
     $db = new PDO('mysql:host=localhost;dbname=dbtest;charset=utf8mb4', 'root', 'root');
 ?>
@@ -82,20 +81,19 @@ $row = $stmt->fetch(PDO::FETCH_ASSOC);
                         </thead>
                   <tbody>
                     <?php
-                    $stmt = $db->prepare("SELECT * FROM tbl_request WHERE userid = ?");
+                    $stmt = $db->prepare('SELECT * FROM tbl_request WHERE userid = ?');
                     $stmt->execute(array($userid));
                     $item = $stmt->fetch();
                     $stmt = $db->query('SELECT * FROM tbl_request WHERE userid ORDER BY id DESC');
-                    while($request = $stmt->fetch())
-                        {
-                            echo '<tr>';
-                            echo '<td>'. $request['date'] . '</td>';
-                            echo '<td>'. $request['validate'] . '</td>';
-                            echo '<td>'. $request['message'] . '</td>';
+                    while ($request = $stmt->fetch()) {
+                        echo '<tr>';
+                        echo '<td>'.$request['date'].'</td>';
+                        echo '<td>'.$request['validate'].'</td>';
+                        echo '<td>'.$request['message'].'</td>';
 
-                            echo '</td>';
-                            echo '</tr>';
-                        }
+                        echo '</td>';
+                        echo '</tr>';
+                    }
 
                       ?>
                    </tbody>
