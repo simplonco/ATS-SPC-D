@@ -7,7 +7,7 @@ var bodyParser = require('body-parser');
 var MongoClient = require('mongodb').MongoClient;
 var assert = require('assert');
 var app = express();
-
+var session=require('express-session');//TODO: install npm
 var routes = require('./routes/index');
 var users = require('./routes/users');
 
@@ -46,6 +46,12 @@ app.get('/login', function (req, res) {
         // console.log("inserted :".res.insertedId+ "\n");
     })
 });
+// Express Session
+app.use(session({
+    secret: 'secret',
+    saveUninitialized: true,
+    resave: true
+}));
 /*MongoClient.connect('mongodb://localhost:27017/chadi',function (err, db) {
  assert.equal(err, null);
 var query = {"": ""};
