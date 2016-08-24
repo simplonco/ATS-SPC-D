@@ -14,7 +14,7 @@ var app = express();
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
-
+var users = require('./routes/dashboards');
 
 
 
@@ -69,18 +69,21 @@ app.get('/check', function (req, res) {
         cursor.forEach(function (doc) {
             var match = doc;
             if (match.admin == true) {//check if the user is admin
-                //  TODO : index render to RH page
+
+
                 console.log(match.name + ' : this user is Admin');
 
             } else {
                 console.log('this user is Client');
+
                 //  TODO : index render to USER
             }
         }, function (err) {
             assert.equal(err, null);
             return db.close();
+
         });
-        res.end();
+        res.render('dashBoard');
         /*
          if (err){
          console.log('error');
