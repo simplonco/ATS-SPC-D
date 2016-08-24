@@ -30,7 +30,7 @@ if (isset($_POST['btn-request'])) {
         $msg = "
                 <div class='alert alert-error'>
                 <button class='close' data-dismiss='alert'>&times;</button>
-                <strong>Sorry !</strong>  You have more than 2 REQUEST this week , Please Try another day
+                <strong>Sorry !</strong>  You have more than 2 REQUEST this week , Please Try another WEEK!
                 </div>
                 ";
     } else {
@@ -44,6 +44,14 @@ if (isset($_POST['btn-request'])) {
         $key = base64_encode($id);
         $id = $key;
 
+        $statusY = "Accepted";
+        $keyY = base64_encode($statusY);
+        $statusY = $keyY;
+
+        $statusN = "Not Accepted";
+        $keyN = base64_encode($statusN);
+        $statusN = $keyN;
+
         $mail = '16accenture@gmail.com';
         $messages = "
                     Dear Madame,
@@ -51,8 +59,12 @@ if (isset($_POST['btn-request'])) {
                     I am $username,<br />Please confirm my request for the day: $date<br /><br />
                     Notes: $message<br/>
                     To CONFIRM the request , just click following link<br />
+                    <br />
+                    <a href='http://localhost/ATS-SPC-D/verifyreq.php?id=$id&code=$code&status=$statusY'>Click HERE to Confirm</a>
                     <br /><br />
-                    <a href='http://localhost/teletravail/verifyreq.php?id=$id&code=$code'>Click HERE to Activate :)</a>
+                    To REFUSE the request , just click following link<br />
+                    <br />
+                    <a href='http://localhost/ATS-SPC-D/verifyreq.php?id=$id&code=$code&status=$statusN'>Click HERE to Refuse</a>
                     <br /><br />
                     Thanks,";
 
@@ -73,58 +85,10 @@ if (isset($_POST['btn-request'])) {
 <!DOCTYPE html>
 <html class="no-js">
 
-<head>
-    <title>
-        <?php echo $row['userEmail']; ?>
-    </title>
-    <!-- Bootstrap -->
-    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
-    <link href="bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" media="screen">
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.0/themes/base/jquery-ui.css">
-    <link href="assets/styles.css" rel="stylesheet" media="screen">
-</head>
+<?php require 'header.inc.php'; ?>
 
 <body>
-    <div>
-        <div class="navbar navbar-fixed-top">
-            <div class="navbar-inner">
-                <div class="container-fluid">
-                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"> <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </a>
-
-                    <a class="brand" href="#"><img src="./images/logo-accenture.png" alt="Logo Accenture"></a>
-                    <div class="nav-collapse collapse">
-                        <ul class="nav pull-right">
-                            <li class="dropdown">
-                                <a href="#" role="button" class="dropdown-toggle" data-toggle="dropdown"> <i class="icon-user"></i>
-                                    <?php echo $row['userEmail']; ?> <i class="caret"></i>
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li>
-                                        <a tabindex="-1" href="home.php">Add Request</a>
-                                        <a tabindex="-1" href="myrequest.php">My Requests</a>
-                                        <a tabindex="-1" href="logout.php">Logout</a>
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul>
-                        <ul class="nav">
-                            <li class="active">
-                                <a href="http://www.accenture.com/fr-fr/" target="_blank">Accenture</a>
-                            </li>
-
-                            <li>
-                                <a href="http://simplon.co/" target="_blank">SimplonCo</a>
-                            </li>
-                        </ul>
-                    </div>
-                    <!--/.nav-collapse -->
-                </div>
-            </div>
-        </div>
-
+      <?php require 'navbar.inc.php'; ?>
         <div class="container" id="con">
             <?php
             if (isset($msg)) {
@@ -133,10 +97,11 @@ if (isset($_POST['btn-request'])) {
             ?>
 
             <form class="form-request" method="post">
-                <h2 class="form-request-heading">Request Teletravail</h2>
+                <h3 class="form-request-heading">Request Teletravail</h3>
                 <hr />
-                <input type="text" class="input-block-level" id="datepicker" placeholder="Choose a date" name="txtdate" required />
-
+                <h5 class="form-label">Choose your request date:</h5>
+                <input type="text" class="input-block-level" id="datepicker" placeholder="Choose a date" name="txtdate" readonly required />
+                <h5 class="form-label">Explain why you request the day for teletravail:</h5>
                 <input type="text" class="input-block-level" placeholder="Enter a message" name="txtmessage" required />
 
                 <!-- TODO: <label>
@@ -144,19 +109,13 @@ if (isset($_POST['btn-request'])) {
                 High Priority!! (send a sms!!)
                 </label> -->
                 <hr />
-                <button class="btn btn-large btn-primary" type="submit" name="btn-request">Submit</button>
+                <button class="btn btn-large btn-warning" type="submit" name="btn-request">Submit</button>
             </form>
         </div>
         <!-- /container -->
 
-        <footer class="footer">
-            <p><img src="./images/tour-eiffel.png" alt="Tour Eiffel"> &copy; 2016 Accenture, Inc.</p>
-        </footer>
-
-        <script type="text/javascript" src="bootstrap/js/jquery-1.9.1.min.js"></script>
-        <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
-        <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
-        <script type="text/javascript" src="assets/scripts.js"></script>
+        <?php require 'footer.inc.php'; ?>
+        <?php require 'script.inc.php'; ?>
 </body>
 
 </html>

@@ -81,8 +81,8 @@ if (isset($_GET['id']) && isset($_GET['code'])) {
         </form>
     </div>
     <!-- /container -->
-    <script src="bootstrap/js/jquery-1.9.1.min.js"></script>
-    <script src="bootstrap/js/bootstrap.min.js"></script>
+    <?php require 'footer.inc.php'; ?>
+    <?php require 'script.inc.php'; ?>
 </body>
 
 </html>

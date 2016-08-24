@@ -51,15 +51,7 @@ if (isset($_GET['id']) && isset($_GET['code'])) {
 <!DOCTYPE html>
 <html>
 
-<head>
-    <title>Confirm Registration</title>
-    <!-- Bootstrap -->
-    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
-    <link href="bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" media="screen">
-    <link href="assets/styles.css" rel="stylesheet" media="screen">
-
-    <script src="js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
-</head>
+<?php require 'header.inc.php'; ?>
 
 <body id="login">
     <div class="container">
@@ -70,8 +62,8 @@ if (isset($_GET['id']) && isset($_GET['code'])) {
     ?>
     </div>
     <!-- /container -->
-    <script src="vendors/jquery-1.9.1.min.js"></script>
-    <script src="bootstrap/js/bootstrap.min.js"></script>
+    <?php require 'footer.inc.php'; ?>
+    <?php require 'script.inc.php'; ?>
 </body>
 
 </html>

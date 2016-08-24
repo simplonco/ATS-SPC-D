@@ -1,7 +1,6 @@
 /** Home Page **/
 
 body {
-    padding-top: 60px;
     padding-bottom: 40px;
     background-color: #f5f5f5;
     background: #0ca2d1;
@@ -199,6 +198,13 @@ body {
 .form-request-heading {
     color: azure;
 }
+.form-label {
+    color: azure;
+}
 #con {
+    padding-top: 60px;
     width: 60%;
+}
+#con2 {
+    padding-top: 60px;
 }

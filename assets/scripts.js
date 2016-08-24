@@ -1,7 +1,7 @@
-$(function() {
+$(function () {
     // Side Bar Toggle
-    $('.hide-sidebar').click(function() {
-        $('#sidebar').hide('fast', function() {
+    $('.hide-sidebar').click(function () {
+        $('#sidebar').hide('fast', function () {
             $('#content').removeClass('span9');
             $('#content').addClass('span12');
             $('.hide-sidebar').hide();
@@ -9,7 +9,7 @@ $(function() {
         });
     });
 
-    $('.show-sidebar').click(function() {
+    $('.show-sidebar').click(function () {
         $('#content').removeClass('span12');
         $('#content').addClass('span9');
         $('.show-sidebar').hide();
@@ -18,17 +18,17 @@ $(function() {
     });
 });
 
-$(function() {
+$(function () {
     function JoursFeries(an) {
-        var JourAn = new Date(an, "00", "01");
-        var FeteTravail = new Date(an, "04", "01");
-        var Victoire1945 = new Date(an, "04", "08");
-        var FeteNationale = new Date(an, "06", "14");
-        var Assomption = new Date(an, "07", "15");
-        var Toussaint = new Date(an, "10", "01");
-        var Armistice = new Date(an, "10", "11");
-        var Noel = new Date(an, "11", "25");
-        var SaintEtienne = new Date(an, "11", "26");
+        var JourAn = new Date(an, '00', '01');
+        var FeteTravail = new Date(an, '04', '01');
+        var Victoire1945 = new Date(an, '04', '08');
+        var FeteNationale = new Date(an, '06', '14');
+        var Assomption = new Date(an, '07', '15');
+        var Toussaint = new Date(an, '10', '01');
+        var Armistice = new Date(an, '10', '11');
+        var Noel = new Date(an, '11', '25');
+        var SaintEtienne = new Date(an, '11', '26');
 
         var G = an % 19;
         var C = Math.floor(an / 100);
@@ -64,7 +64,7 @@ $(function() {
                 array[i] = jQuery.datepicker.formatDate('dd-mm-yy', array[i]);
             }
             var string = jQuery.datepicker.formatDate('dd-mm-yy', date);
-            return [day != 0 && day != 6 && (array.indexOf(string) == -1)];
+            return [day !== 0 && day !== 6 && (array.indexOf(string) == -1)];
         }
 
     });

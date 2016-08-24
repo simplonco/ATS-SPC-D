@@ -87,8 +87,7 @@ if (isset($_POST['btn-submit'])) {
         </form>
     </div>
     <!-- /container -->
-    <script src="bootstrap/js/jquery-1.9.1.min.js"></script>
-    <script src="bootstrap/js/bootstrap.min.js"></script>
+    <?php require 'script.inc.php'; ?>
 </body>
 
 </html>
