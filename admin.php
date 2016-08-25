@@ -77,9 +77,8 @@ $db = new PDO('mysql:host=localhost;dbname=dbtest;charset=utf8mb4', 'root', 'roo
                     <tr>
                         <th>USERS</th>
                         <th>DATE</th>
-                        <th>VALIDATE</th>
                         <th>MESSAGE</th>
-                        <th>REPLY</th>
+                        <th>VALIDATE</th>
                     </tr>
                 </thead>
 
@@ -101,14 +100,20 @@ $db = new PDO('mysql:host=localhost;dbname=dbtest;charset=utf8mb4', 'root', 'roo
                     echo '<tr>';
                     echo '<td>'.$request['userN'].'</td>';
                     echo '<td>'.$request['date'].'</td>';
-                    echo '<td>'.$request['validate'].'</td>';
-                    echo '<td>'.$request['message'].'</td>';
-
-                    echo '<td width=175>';
-                    echo '<a class="btn btn-primary" href="verifyreq.php?id='.base64_encode($request['id']).'&code='.$request['code'].'&status='.$statusY.'"><span class="glyphicon glyphicon-pencil"></span> Confirm</a>';
-                    echo ' ';
-                    echo '<a class="btn btn-danger" href="verifyreq.php?id='.base64_encode($request['id']).'&code='.$request['code'].'&status='.$statusN.'"><span class="glyphicon glyphicon-remove"></span> Refuse</a>';
                     echo '</td>';
+                    echo '<td>'.$request['message'].'</td>';
+                    echo '<td width=175>';
+                    if ($request['validate'] == "Waiting") {
+                        echo '<a class="btn btn-primary" href="verifyreq.php?id='.base64_encode($request['id']).'&code='.$request['code'].'&status='.$statusY.'"><span class="glyphicon glyphicon-pencil"></span> Confirm</a>';
+                        echo ' ';
+                        echo '<a class="btn btn-danger" href="verifyreq.php?id='.base64_encode($request['id']).'&code='.$request['code'].'&status='.$statusN.'"><span class="glyphicon glyphicon-remove"></span> Refuse</a>';
+                    } else {
+                        if ($request['validate'] == "Accepted") {
+                            echo '<strong style="color:blue">Accepted</strong>';
+                        } else {
+                            echo '<strong style="color:red">Refused</strong>';
+                        }
+                    }
 
                     echo '</tr>';
                 }
