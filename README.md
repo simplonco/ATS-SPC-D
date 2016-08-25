@@ -1,2 +1,2 @@
 # Accenture Télétravail
-![alt tag](http://github.com/simplonco/ATS-SPC-D/blob/master/images/readme.jpg)
+![alt tag](https://github.com/simplonco/ATS-SPC-D/blob/master/images/readme.jpg)
