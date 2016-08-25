@@ -12,7 +12,11 @@ if (isset($_POST['btn-login'])) {
     $upass = trim($_POST['txtupass']);
 
     if ($user_login->login($email, $upass)) {
+      if ($email == "admin@accenture.com") {
+        $user_login->redirect('admin.php');
+      }else {
         $user_login->redirect('home.php');
+      }
     }
 }
 ?>
@@ -56,6 +60,7 @@ if (isset($_POST['btn-login'])) {
             <?php
             }
             ?>
+
             <h2 class="form-signin-heading">Sign In.</h2>
             <hr />
             <input type="email" class="input-block-level" placeholder="Email address" name="txtemail" required />

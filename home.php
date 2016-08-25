@@ -12,11 +12,14 @@ $stmt = $user_home->runQuery('SELECT * FROM tbl_users WHERE userID=:uid');
 $stmt->execute(array(':uid' => $_SESSION['userSession']));
 $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
+
 if (isset($_POST['btn-request'])) {
     $date = trim($_POST['txtdate']);
     $message = trim($_POST['txtmessage']);
     $code = md5(uniqid(rand()));
     $WeekNumber = date('W', strtotime($date));
+
+
 
     $userid = $row['userID'];
     $username = $row['userName'];

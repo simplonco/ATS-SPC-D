@@ -37,7 +37,7 @@ if (isset($_POST['btn-signup'])) {
                         Welcome to Accenture teletravail application!<br/>
                         To complete your registration  please , just click following link<br/>
                         <br /><br />
-                        <a href='http://localhost/teletravail/verify.php?id=$id&code=$code'>Click HERE to Activate :)</a>
+                        <a href='http://localhost/teletravail/verify.php?id=$id&code=$code'>Click HERE to Activate.</a>
                         <br /><br />
                         Thanks,";
 
@@ -79,6 +79,7 @@ if (isset($_POST['btn-signup'])) {
             echo $msg;
         } ?>
         <form class="form-signin" method="post">
+          
             <h2 class="form-signin-heading">Sign Up</h2>
             <hr />
             <input type="text" class="input-block-level" placeholder="Username" name="txtuname" required />

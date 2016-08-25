@@ -31,14 +31,14 @@ if (isset($_GET['id']) && isset($_GET['code']) && isset($_GET['status'])) {
             $msg = "
                     <div class='alert alert-success'>
                       <button class='close' data-dismiss='alert'>&times;</button>
-                      <strong>OK !</strong>  The REQUEST is Now have a reply.. <a href=$close>Close</a>
+                      <strong>OK !</strong>  The REQUEST is Now have a reply.. <a href=admin.php>Back to Admin Page</a>
                     </div>
                    ";
         } else {
             $msg = "
                    <div class='alert alert-error'>
                      <button class='close' data-dismiss='alert'>&times;</button>
-                     <strong>sorry !</strong>  Your REQUEST is allready Activated.. <a href=$close>Close</a>
+                     <strong>sorry !</strong>  Your REQUEST is allready Activated.. <a href=admin.php>Back to Admin Page</a>
                    </div>
                    ";
         }
@@ -46,7 +46,7 @@ if (isset($_GET['id']) && isset($_GET['code']) && isset($_GET['status'])) {
         $msg = "
                <div class='alert alert-error'>
                  <button class='close' data-dismiss='alert'>&times;</button>
-                 <strong>sorry !</strong>  No REQUEST Found.. <a href=$close>Close</a>
+                 <strong>sorry !</strong>  No REQUEST Found.. <a href=admin.php>Back to Admin Page</a>
                </div>
                ";
     }

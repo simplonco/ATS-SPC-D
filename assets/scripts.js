@@ -53,7 +53,7 @@ $(function () {
         dayNamesMin: ["Di", "Lu", "Ma", "Me", "Je", "Ve", "Sa"],
         monthNamesShort: ["Janv", "Fevr", "Mars", "Avril", "Mai", "Juin", "Juil", "Aout", "Sept", "Oct", "Nov", "Dec"],
         firstDay: 1,
-        startDay: 0,
+
         yearRange: "2016:2016",
         minDate: 2,
         changeMonth: true,

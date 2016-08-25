@@ -2,7 +2,6 @@
 session_start();
 require_once 'class.user.php';
 $user_home = new USER();
-$req = new USER();
 
 if (!$user_home->is_logged_in()) {
     $user_home->redirect('index.php');
@@ -14,6 +13,7 @@ $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
 $userid = $row['userID'];
 $username = $row['userName'];
+
 $db = new PDO('mysql:host=localhost;dbname=dbtest;charset=utf8mb4', 'root', 'root');
 ?>
 
@@ -27,6 +27,14 @@ $db = new PDO('mysql:host=localhost;dbname=dbtest;charset=utf8mb4', 'root', 'roo
     <div class="container" id="con2">
         <h2 class="form-request-heading">My Requests</h2>
         <hr />
+        <!-- <script>
+
+        var array = holidays(2016);
+        for (var i = 0; i < array.length; i++) {
+            array[i] = document.write(array[i]);
+        }
+        </script> -->
+
         <div class="alert alert-info">
             <table class="table table-striped table-bordered">
                 <thead>
@@ -36,12 +44,10 @@ $db = new PDO('mysql:host=localhost;dbname=dbtest;charset=utf8mb4', 'root', 'roo
                         <th>Message</th>
                     </tr>
                 </thead>
+
                 <tbody>
                 <?php
-                $stmt = $db->prepare('SELECT * FROM tbl_request WHERE userid = ?');
-                $stmt->execute(array($userid));
-                $item = $stmt->fetch();
-                $stmt = $db->query('SELECT * FROM tbl_request WHERE userid ORDER BY id DESC');
+                $stmt = $db->query('SELECT * FROM tbl_request WHERE userid = '.$userid.' ORDER BY id DESC');
                 while ($request = $stmt->fetch()) {
                     echo '<tr>';
                     echo '<td>'.$request['date'].'</td>';
@@ -58,5 +64,4 @@ $db = new PDO('mysql:host=localhost;dbname=dbtest;charset=utf8mb4', 'root', 'roo
     <?php require 'footer.inc.php'; ?>
     <?php require 'script.inc.php'; ?>
 </body>
-
 </html>

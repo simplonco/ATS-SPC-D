@@ -6,5 +6,5 @@
     <!-- <link href="bootstrap/css/jquery-ui.min.css" rel="stylesheet" media="screen"> -->
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.0/themes/base/jquery-ui.css">
     <link href="assets/styles.css" rel="stylesheet" media="screen">
-    <script src="js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
-</head>
+    <!-- <script src="js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script> -->
+  </head>
