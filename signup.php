@@ -66,6 +66,7 @@ if (isset($_POST['btn-signup'])) {
     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
     <link href="bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" media="screen">
     <link href="assets/styles.css" rel="stylesheet" media="screen">
+    <link rel='shortcut icon' href='images/favicon.ico' type='image/x-icon'/ >
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
@@ -79,7 +80,7 @@ if (isset($_POST['btn-signup'])) {
             echo $msg;
         } ?>
         <form class="form-signin" method="post">
-          
+
             <h2 class="form-signin-heading">Sign Up</h2>
             <hr />
             <input type="text" class="input-block-level" placeholder="Username" name="txtuname" required />

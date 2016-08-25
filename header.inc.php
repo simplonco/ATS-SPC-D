@@ -7,4 +7,5 @@
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.0/themes/base/jquery-ui.css">
     <link href="assets/styles.css" rel="stylesheet" media="screen">
     <!-- <script src="js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script> -->
+    <link rel='shortcut icon' href='images/favicon.ico' type='image/x-icon'/ >
   </head>
