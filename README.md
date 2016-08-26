@@ -1,4 +1,4 @@
-# ATS SPC - Groupe
+# ATS SPC - Group D
 
 ![Télétravail](https://github.com/simplonco/ATS-SPC-D/blob/master/images/readme.jpg)
 
