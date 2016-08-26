@@ -1,10 +1,12 @@
-Accenture Project
-=============
+# ATS SPC - Group D
 
+## Authors
 
-=================
-## Database name : chadi
-----------------
-### collection name :  client
+- HAMOUI Antoine
+- SABA Chadi
+- ISSA Berivan
 
+## Setup
 
+- database name: `chadi`
+- collection name: `client`
