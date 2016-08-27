@@ -15,6 +15,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
 
+
 var mongo = require('mongodb');
 var mongoose = require('mongoose');
 var MongoClient = require('mongodb').MongoClient;
@@ -27,15 +28,17 @@ var flash = require('connect-flash');
 var session = require('express-session');
 var passport = require('passport');
 var localStrategy = require('passport-local').Strategy;
+app.use(session({
+    secret:'secret',
+    resave:true,
+    saveUninitialized:false
+}));
 
 
 var routes = require('./routes/index');
 
 
-
-
 app.use('/', routes);
-
 
 
 var exphbs = require('express-handlebars');
@@ -57,11 +60,12 @@ app.listen(app.get('port'), function () {
     console.log('Server started' + app.get('port'));
 });
 
-app.post('/userCheck',function(req, res ){
 
-var name = req.body.username;
-    console.log(name);
-  MongoClient.connect('mongodb://localhost:27017/chadi', function (err, db) {
+app.post('/userCheck', function (req, res) {
+
+    var name = req.body.username;
+    // console.log(name);
+    MongoClient.connect('mongodb://localhost:27017/chadi', function (err, db) {
 
         assert.equal(err, null);
         console.log("Successfully connected to MongoDB.");
@@ -69,8 +73,18 @@ var name = req.body.username;
         var query = {"name": name};
 
         db.collection('client').find(query).toArray(function (err, docs) {
+            assert.equal(err, null);
+            if(docs.length== 0){// detect if the user registered in the dataBase
+                res.send('user not found');
+            }else{
+                res.send('');
+            }
 
-            /*     });
-   */
+
+        });
+
     });
+
+});
+
 module.exports = app;
