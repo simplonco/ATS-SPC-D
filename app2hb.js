@@ -10,6 +10,11 @@ var bodyParser = require('body-parser');
 var MongoClient = require('mongodb').MongoClient;
 var assert = require('assert');
 var exphbs= require('express-handlebars');
+var expressValidator = require('express-validator');
+var flash= require('connect-flash');
+var session = require('express-session');
+var passport = require('passport');
+var localStrategy = require('passport-local').Strategy;
 var app = express();
 
 var routes = require('./routes/index');
@@ -30,14 +35,8 @@ var hbs=exphbs.create({
 
 app.get('/',function(req, res){// TODO:
    // res.render('home');
-    res.render('login', {
-        showTitle: false,
-
-        // Override `foo` helper only for this rendering.
-        helpers: {
-            foo: function () { return 'foo.'; }
-        }
-    });
+    res.render('login'
+    );
 })
 
 

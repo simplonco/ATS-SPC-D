@@ -7,7 +7,7 @@ var bodyParser = require('body-parser');
 var MongoClient = require('mongodb').MongoClient;
 var assert = require('assert');
 var app = express();
-var session=require('express-session');//TODO: install npm
+var session=require('express-session');
 var routes = require('./routes/index');
 var users = require('./routes/users');
 

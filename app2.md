@@ -7,3 +7,4 @@
 4- add file home.handlebars
 5    - add  dashBoard.handlebars
 6-  delet jade views
+7 - install npm express validator
