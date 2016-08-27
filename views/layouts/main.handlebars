@@ -4,12 +4,99 @@
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+   <link rel="stylesheet" href="//code.jquery.com/ui/1.12.0/themes/base/jquery-ui.css" >
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+
+    <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
+    <script type="text/javascript" href="/javascript/bootstrap.js"></script>
 
     <title>Accenture teletravail project</title>
     <link href="stylesheets/bootstrap.css" rel="stylesheet"/>
+<script>
+    $(function () {
+        function JoursFeries(an) {
+            var JourAn = new Date(an, "00", "01");
+            var FeteTravail = new Date(an, "04", "01");
+            var Victoire1945 = new Date(an, "04", "08");
+            var FeteNationale = new Date(an,"06", "14");
+            var Assomption = new Date(an, "07", "15");
+            var Toussaint = new Date(an, "10", "01");
+            var Armistice = new Date(an, "10", "11");
+            var Noel = new Date(an, "11", "25");
+            var SaintEtienne = new Date(an, "11", "26");
 
+            var G = an%19;
+            var C = Math.floor(an/100);
+            var H = (C - Math.floor(C/4) - Math.floor((8*C+13)/25) + 19*G + 15)%30;
+            var I = H - Math.floor(H/28)*(1 - Math.floor(H/28)*Math.floor(29/(H + 1))*Math.floor((21 - G)/11));
+            var J = (an*1 + Math.floor(an/4) + I + 2 - C + Math.floor(C/4))%7;
+            var L = I - J;
+            var MoisPaques = 3 + Math.floor((L + 40)/44);
+            var JourPaques = L + 28 - 31*Math.floor(MoisPaques/4);
+            var Paques = new Date(an, MoisPaques-1, JourPaques);
+            var VendrediSaint = new Date(an, MoisPaques-1, JourPaques-2);
+            var LundiPaques = new Date(an, MoisPaques-1, JourPaques+1);
+            var Ascension = new Date(an, MoisPaques-1, JourPaques+39);
+            var Pentecote = new Date(an, MoisPaques-1, JourPaques+49);
+            var LundiPentecote = new Date(an, MoisPaques-1, JourPaques+50);
+
+            return new Array(JourAn, VendrediSaint, Paques, LundiPaques, FeteTravail, Victoire1945, Ascension, Pentecote, LundiPentecote, FeteNationale, Assomption, Toussaint, Armistice, Noel, SaintEtienne)
+        }
+
+
+        $( "#datepicker" ).datepicker({
+            dateFormat: "dd-mm-yy",
+            dayNamesMin: [ "Di", "Lu", "Ma", "Me", "Je", "Ve", "Sa" ],
+            monthNamesShort: [ "Janv", "Fevr", "Mars", "Avril", "Mai", "Juin", "Juil", "Aout", "Sept", "Oct", "Nov", "Dec" ],
+            firstDay: 1,
+            startDay:0,
+            yearRange: "2016:2016",
+            minDate: 2,
+            changeMonth: true,
+            beforeShowDay: function(date){
+                var day = date.getDay();
+                var array = JoursFeries(2016);
+                for (var i = 0; i < array.length; i++) {
+                    array[i]= jQuery.datepicker.formatDate('dd-mm-yy', array[i]);
+                }
+                var string = jQuery.datepicker.formatDate('dd-mm-yy', date);
+                return [ day != 0 && day !=6 && (array.indexOf(string) == -1 )];
+            }
+
+        });
+    });
+</script>
 </head>
 <body>
-{{{body}}}
+<div class="container">
+    <div class="header clearfix">
+        <nav>
+            <ul class="nav nav-pills pull-right">
+                <li role="presentation" class="active"><a href="/login">Login</a></li>
+                <li role="presentation"><a href="dashbord">DashBoard</a></li>
+                <li role="presentation"><a href="logout">Logout</a></li>
+
+            </ul>
+        </nav>
+        <h3 class="text-muted">Project name</h3>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            {{#if success_msg}}
+                <div class="alert alert-success">{{success_msg}}</div>
+            {{/if}}
+            {{#if error_msg}}
+                <div class="alert alert-danger">{{error_msg}}</div>
+            {{/if}}
+            {{#if error}}
+                <div class="alert alert-danger">{{error}}</div>
+            {{/if}}
+            {{{body}}}
+        </div>
+
+    </div>
+
+</div>
+
 </body>
 </html>

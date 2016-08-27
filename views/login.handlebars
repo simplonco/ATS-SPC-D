@@ -1,34 +1,37 @@
-<div class="container">
-    <div class="header clearfix">
-        <nav>
-            <ul class="nav nav-pills pull-right">
-                <li role="presentation" class="active"><a href="/login">Login</a></li>
-                <li role="presentation"><a href="dashbord">DashBoard</a></li>
-                <li role="presentation"><a href="logout">Logout</a></li>
 
-            </ul>
-        </nav>
-        <h3 class="text-muted">Project name</h3>
+<form method="get" action="/user" id="myform">
+
+    <h1>show Title</h1>
+    <p>{{foo}}</p>
+
+
+    <div class="form-group">
+        <label>User Name</label>
+        <input type="text" id="input" class="form-control" name="username" placeholder="Username">
+<div id="text"> </div>
+        <!-- TODO: on change check user name -->
     </div>
-    <form method="GET" action="/login">
-        {{#if showTitle}}
-       <h1>show Title</h1>
-            <p>{{foo}}</p>
-        {{/if}}
+    <div class="form-group">
+        <label>Password</label>
+        <input type="password" class="form-control" name="password" placeholder="Password">
+    </div>
 
-        <div class="form-group">
-            <label>User Name</label>
-            <input type="text" class="form-control" name="username" placeholder="Username">
+    <button type="submit" class="btn btn-default">Submit</button>
+<script>
+$('#input').on('change',function(){
+  var  xhr= new XMLHttpRequest();
 
-            <!-- TODO: on change check user name -->
-        </div>
-        <div class="form-group">
-            <label>Password</label>
-            <input type="password" class="form-control" name="password" placeholder="Password">
-        </div>
-
-        <button type="submit" class="btn btn-default">Submit</button>
-
-    </form>
-
-</div>
+   var  url= '/userCheck';
+    var name = document.getElementById('myform').elements.namedItem('username').value;
+    xhr.open('POST',url,true);
+    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhr.send('username='+ name);
+    xhr.onreadystatechange= function(){
+        if(xhr.readyState== 4 && xhr.status== 200){
+            var result = xhr.responseText;
+           document.getElementById('text').innerHTML = result;   }
+    }
+    //TODO :
+});
+</script>
+</form>
