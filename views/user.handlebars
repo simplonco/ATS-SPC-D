@@ -1,8 +1,30 @@
 
-
-
-<h1 class="page-header">welcome {{user}}</h1>
-
-<form>
-    <p>Date: <input type="text" id="datepicker"></p>
+<div class="jumbotron">
+<form id="userForm">
+    <h1 id="header" class="page-header"></h1>
+    <p>Select the Date: <input type="text" name="datet" id="datepicker"> you want to work</p>
+    <div id="reqResult"></div>
+    <button type="button" onclick="sendRequest()">Send</button>
 </form>
+<script>
+    document.getElementById('header').innerHTML = 'Welcome :' + localStorage.name;
+
+</script>
+<script>
+    function sendRequest() {
+        var xhr = new XMLHttpRequest();
+        var name =  localStorage.name;
+        var date = document.getElementById('userForm').elements.namedItem('datet').value;
+        var url= "addRequest";
+        xhr.open('post',url,true);
+        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");//special for post
+        xhr.send('username=' + name + '&date=' + date );
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                document.getElementById('reqResult').innerHTML = " Your reQuest has been send";
+
+            }
+        }
+    }
+</script>
+</div>
