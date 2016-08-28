@@ -6,7 +6,7 @@ var app = express();
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
-
+var currentWeekNumber = require('current-week-number');
 
 // Body Parser Middleware
 var cookieParser = require('cookie-parser');
@@ -68,7 +68,7 @@ app.post('/userCheck', function (req, res) {
     MongoClient.connect('mongodb://localhost:27017/chadi', function (err, db) {
 
         assert.equal(err, null);
-        console.log("Successfully connected to MongoDB.");
+   //     console.log("Successfully connected to MongoDB.");
 
         var query = {"name": name};
 
@@ -85,6 +85,32 @@ app.post('/userCheck', function (req, res) {
 
     });
 
+});
+
+app.post('/addRequest', function(req, res){
+    var name = req.body.username;
+    var date = req.body.date;
+    var weeknumber= currentWeekNumber(date);
+ console.log (name +"ddd"+date+'weeknumber :'+weeknumber);
+
+  MongoClient.connect('mongodb://localhost:27017/chadi',function (err, db){
+        assert.equal(err, null);
+      var query={"name":name};
+        var query1={"name":name, "date":date,"weeknumber":weeknumber,"accepted":false,"oncheck":true };
+db.collection('client').updateOne(query,{$push:{request:query1}});
+
+
+    })
+});
+
+app.get('/user',function(req,res){
+    res.render('user');
+});
+app.get('/admin',function(req,res){
+    res.render('admin');
+});
+app.get('/login',function(req,res){
+    res.render('login');
 });
 
 module.exports = app;
