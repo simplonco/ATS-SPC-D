@@ -218,4 +218,13 @@ res.send('/admin');
  });
  });
  */
+router.post('/userdata',function() {
+    MongoClient.connect('mongodb://localhost:27017/chadi', function(err, db){
+        assert.equal(err,null);
+        db.collection('client').find().toArray(function(err,docs){
+            assert.equal(err, null);
+
+        })
+    })
+})
 module.exports = router;
