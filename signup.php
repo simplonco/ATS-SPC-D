@@ -22,7 +22,7 @@ if (isset($_POST['btn-signup'])) {
         $msg = "
                 <div class='alert alert-error'>
                 <button class='close' data-dismiss='alert'>&times;</button>
-                  <strong>Sorry !</strong>  email allready exists , Please Try another one
+                  <strong>désolé !</strong>  email existe déjà, S'il vous plaît essayer un autre.
                 </div>
                 ";
     } else {
@@ -32,27 +32,29 @@ if (isset($_POST['btn-signup'])) {
             $id = $key;
 
             $message = "
-                        Hello $uname,
+                        <img src='http://www.accenture.com/t00010101T000000__w__/fr-fr/_acnmedia/Accenture/Dev/ComponentImages/logo-accenture.png'>
                         <br /><br />
-                        Welcome to Accenture teletravail application!<br/>
-                        To complete your registration  please , just click following link<br/>
+                        Bonjour $uname,
                         <br /><br />
-                        <a href='http://localhost/teletravail/verify.php?id=$id&code=$code'>Click HERE to Activate.</a>
+                        Bienvenue a la demande de teletravail Accenture!<br/>
+                        Pour terminer votre inscription s'il vous plait, cliquez simplement sur le lien suivant<br/>
                         <br /><br />
-                        Thanks,";
+                        <a href='http://localhost/ATS-SPC-D/verify.php?id=$id&code=$code'>Cliquez ici pour activer.</a>
+                        <br /><br />
+                        Merci,";
 
-            $subject = 'Confirm Registration';
+            $subject = 'Confirmer inscription';
 
             $reg_user->send_mail($email, $message, $subject);
             $msg = "
                     <div class='alert alert-success'>
                         <button class='close' data-dismiss='alert'>&times;</button>
-                        <strong>Success!</strong>  We've sent an email to $email.
-                        Please click on the confirmation link in the email to create your account.
+                        Nous avons envoyé un courriel à $email.
+                        S'il vous plait cliquer sur le lien de confirmation dans l'e-mail pour créer votre compte.
                     </div>
                     ";
         } else {
-            echo 'sorry , Query could no execute...';
+            echo 'désolé , Requête n a pas pu exécuter...';
         }
     }
 }
@@ -61,12 +63,9 @@ if (isset($_POST['btn-signup'])) {
 <html>
 
 <head>
-    <title>Signup | Accenture</title>
-    <!-- Bootstrap -->
-    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
-    <link href="bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" media="screen">
-    <link href="assets/styles.css" rel="stylesheet" media="screen">
-    <link rel='shortcut icon' href='images/favicon.ico' type='image/x-icon'/ >
+  <meta charset="UTF-8">
+    <title>Accenture | S'enregistrer</title>
+        <?php require 'header.inc.php'; ?>
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
@@ -75,20 +74,26 @@ if (isset($_POST['btn-signup'])) {
 </head>
 
 <body id="login">
-    <div class="container">
+  <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+          <a class="brand" id="app-name" href="#"><img src="./images/logo-accenture.png" alt="Logo Accenture"> eTélétravail Application </a>
+      </div>
+  </div>
+
+    <div class="container" id="con2">
         <?php if (isset($msg)) {
             echo $msg;
         } ?>
         <form class="form-signin" method="post">
 
-            <h2 class="form-signin-heading">Sign Up</h2>
+            <h2 class="form-signin-heading">S'enregistrer</h2>
             <hr />
-            <input type="text" class="input-block-level" placeholder="Username" name="txtuname" required />
-            <input type="email" class="input-block-level" placeholder="Email address" name="txtemail" required />
-            <input type="password" class="input-block-level" placeholder="Password" name="txtpass" required />
+            <input type="text" class="input-block-level" placeholder="Nom d'utilisateur" name="txtuname" required />
+            <input type="email" class="input-block-level" placeholder="Adresse e-mail" name="txtemail" required />
+            <input type="password" class="input-block-level" placeholder="Mot de passe" name="txtpass" required />
             <hr />
-            <button class="btn btn-large btn-primary" type="submit" name="btn-signup">Sign Up</button>
-            <a href="index.php" style="float:right;" class="btn btn-large">Sign In</a>
+            <button class="btn btn-large btn-primary" type="submit" name="btn-signup">S'enregistrer</button>
+            <a href="index.php" style="float:right;" class="btn btn-large">Se connecter</a>
         </form>
     </div>
     <!-- /container -->

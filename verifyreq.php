@@ -11,9 +11,9 @@ if (isset($_GET['id']) && isset($_GET['code']) && isset($_GET['status'])) {
     $code = $_GET['code'];
     $status = base64_decode($_GET['status']);
 
-    $statusW = "Waiting";
+    $statusW = "Attendre";
 
-    $close = 'JavaScript:window.close()';
+    // $close = 'JavaScript:window.close()';
 
     $db = new PDO('mysql:host=localhost;dbname=dbtest;charset=utf8mb4', 'root', 'root');
 
@@ -31,14 +31,16 @@ if (isset($_GET['id']) && isset($_GET['code']) && isset($_GET['status'])) {
             $msg = "
                     <div class='alert alert-success'>
                       <button class='close' data-dismiss='alert'>&times;</button>
-                      <strong>OK !</strong>  The REQUEST is Now have a reply.. <a href=admin.php>Back to Admin Page</a>
+                      <strong>OK !</strong>  La demande est maintenant avoir une réponse ..
+                      <script> setTimeout() </script>
                     </div>
                    ";
         } else {
             $msg = "
                    <div class='alert alert-error'>
                      <button class='close' data-dismiss='alert'>&times;</button>
-                     <strong>sorry !</strong>  Your REQUEST is allready Activated.. <a href=admin.php>Back to Admin Page</a>
+                     <strong>désolé !</strong>  Votre demande est déjà activé ..
+                     <script> setTimeout() </script>
                    </div>
                    ";
         }
@@ -46,7 +48,8 @@ if (isset($_GET['id']) && isset($_GET['code']) && isset($_GET['status'])) {
         $msg = "
                <div class='alert alert-error'>
                  <button class='close' data-dismiss='alert'>&times;</button>
-                 <strong>sorry !</strong>  No REQUEST Found.. <a href=admin.php>Back to Admin Page</a>
+                 <strong>désolé !</strong>  Non demande trouvé ..
+                 <script> setTimeout() </script>
                </div>
                ";
     }
@@ -56,10 +59,13 @@ if (isset($_GET['id']) && isset($_GET['code']) && isset($_GET['status'])) {
 <!DOCTYPE html>
 <html>
 
-<?php require 'header.inc.php'; ?>
-
+<head>
+  <meta charset="UTF-8">
+    <title>Accenture | eTélétravail</title>
+    <?php require 'header.inc.php'; ?>
+</head>
 <body id="login">
-    <div class="container">
+    <div class="container" id="con2">
     <?php
     if (isset($msg)) {
         echo $msg;
@@ -69,6 +75,11 @@ if (isset($_GET['id']) && isset($_GET['code']) && isset($_GET['status'])) {
     <!-- /container -->
     <?php require 'footer.inc.php'; ?>
     <?php require 'script.inc.php'; ?>
+    <script type="text/javascript">
+        window.setTimeout(function(){
+          window.location.href = "admin.php?order=tbl_request.id&az=DESC";
+        }, 2000);
+    </script>
 </body>
 
 </html>

@@ -25,6 +25,7 @@ if (isset($_POST['btn-request'])) {
     $username = $row['userName'];
     $db = new PDO('mysql:host=localhost;dbname=dbtest;charset=utf8mb4', 'root', 'root');
 
+
     $stmt = $db->prepare('SELECT * FROM tbl_request WHERE weekNum=:weekNum');
     $stmt->execute(array(':weekNum' => $WeekNumber));
     $stmt->fetch(PDO::FETCH_ASSOC);
@@ -33,7 +34,7 @@ if (isset($_POST['btn-request'])) {
         $msg = "
                 <div class='alert alert-error'>
                 <button class='close' data-dismiss='alert'>&times;</button>
-                <strong>Sorry !</strong>  You have more than 2 REQUEST this week , Please Try another WEEK!
+                <strong>désolé !</strong>  Vous avez plus de 2 DEMANDE cette semaine, S'il vous plaît essayer une autre semaine!
                 </div>
                 ";
     } else {
@@ -47,38 +48,40 @@ if (isset($_POST['btn-request'])) {
         $key = base64_encode($id);
         $id = $key;
 
-        $statusY = "Accepted";
+        $statusY = "Accepté";
         $keyY = base64_encode($statusY);
         $statusY = $keyY;
 
-        $statusN = "Not Accepted";
+        $statusN = "Refusé";
         $keyN = base64_encode($statusN);
         $statusN = $keyN;
 
+        // $mail = $row['userEmail'];
         $mail = '16accenture@gmail.com';
         $messages = "
-                    Dear Madame,
+                    Cher Madame,
                     <br /><br />
-                    I am $username,<br />Please confirm my request for the day: $date<br /><br />
-                    Notes: $message<br/>
-                    To CONFIRM the request , just click following link<br />
+                    Je suis $username,<br />merci de confirmer ma demande pour ce jour: $date<br /><br />
+                    Notes: $message<br/><br/>
+                    <font color=blue>Pour accepter la demande, merci de cliquer sur le lien suivant</font>
                     <br />
-                    <a href='http://localhost/ATS-SPC-D/verifyreq.php?id=$id&code=$code&status=$statusY'>Click HERE to Confirm</a>
-                    <br /><br />
-                    To REFUSE the request , just click following link<br />
                     <br />
-                    <a href='http://localhost/ATS-SPC-D/verifyreq.php?id=$id&code=$code&status=$statusN'>Click HERE to Refuse</a>
+                    <a href='http://localhost/ATS-SPC-D/verifyreq.php?id=$id&code=$code&status=$statusY'>cliquer ici pour accepter</a>
                     <br /><br />
-                    Thanks,";
+                    <font color=red>Pour refuser la demande, merci de cliquer sur le lien suivant</font><br />
+                    <br />
+                    <a href='http://localhost/ATS-SPC-D/verifyreq.php?id=$id&code=$code&status=$statusN'>cliquer ici pour refuser</a>
+                    <br /><br />
+                    Merci,";
 
-        $subject = 'Confirm Request Teletravail';
+        $subject = 'Confirmation de la demande de teletravail';
 
         $req->send_mail($mail, $messages, $subject);
         $msg = "
                 <div class='alert alert-success'>
                     <button class='close' data-dismiss='alert'>&times;</button>
-                    <strong>Success!</strong> We've sent an email to the HR department.
-                    it is took 24h to reply, have a great day.
+                    Votre demande a bien été envoyée au département RH.
+                    Vous aurez une réponse dans 24h, bonne fin de journée.
                 </div>
                 ";
     }
@@ -87,9 +90,11 @@ if (isset($_POST['btn-request'])) {
 
 <!DOCTYPE html>
 <html class="no-js">
-
-<?php require 'header.inc.php'; ?>
-
+<head>
+  <meta charset="UTF-8">
+    <title>Accenture | eTélétravail</title>
+    <?php require 'header.inc.php'; ?>
+</head>
 <body>
       <?php require 'navbar.inc.php'; ?>
         <div class="container" id="con">
@@ -100,19 +105,19 @@ if (isset($_POST['btn-request'])) {
             ?>
 
             <form class="form-request" method="post">
-                <h3 class="form-request-heading">Request Teletravail</h3>
+                <h3 class="form-request-heading">Demande de Télétravail</h3>
                 <hr />
-                <h5 class="form-label">Choose your request date:</h5>
-                <input type="text" class="input-block-level" id="datepicker" placeholder="Choose a date" name="txtdate" readonly required />
-                <h5 class="form-label">Explain why you request the day for teletravail:</h5>
-                <input type="text" class="input-block-level" placeholder="Enter a message" name="txtmessage" required />
+                <h5 class="form-label">Choisissez la date pour votre demande:</h5>
+                <input type="text" class="input-block-level" id="datepicker" placeholder="Choisissez une date" name="txtdate" required />
+                <h5 class="form-label">Expliquez pourquoi vous demandez ce jour de  télétravail:</h5>
+                <input type="text" class="input-block-level" placeholder="Entrez votre message" name="txtmessage" required />
 
                 <!-- TODO: <label>
                 <input type="checkbox" id="sms" value="p1">
                 High Priority!! (send a sms!!)
                 </label> -->
                 <hr />
-                <button class="btn btn-large btn-warning" type="submit" name="btn-request">Submit</button>
+                <button class="btn btn-large btn-warning" type="submit" name="btn-request">Envoyer</button>
             </form>
         </div>
         <!-- /container -->

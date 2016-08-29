@@ -21,15 +21,16 @@ if (isset($_POST['btn-submit'])) {
         $stmt->execute(array(':token' => $code, 'email' => $email));
 
         $message = "
-                   Hello , $email
+                   Bonjour , $email
                    <br /><br />
-                   We got requested to reset your password, if you do this then just click the following link to reset your password, if not just ignore                   this email,
+                   Nous avons recu votre demande de réinitialisation de mot de passe,
+                   cliquer sur le lien suivant, sinon ignorer ce mail,
                    <br /><br />
-                   Click Following Link To Reset Your Password
+                   Cliquer sur le lien suivant pour réinitialiser votre mot de passe.
                    <br /><br />
-                   <a href='http://localhost/x/resetpass.php?id=$id&code=$code'>click here to reset your password</a>
+                   <a href='http://localhost/x/resetpass.php?id=$id&code=$code'>Cliquer ici pour réinitialiser votre mot de passe</a>
                    <br /><br />
-                   thank you :)
+                   Merci.
                    ";
         $subject = 'Password Reset';
 
@@ -37,13 +38,13 @@ if (isset($_POST['btn-submit'])) {
 
         $msg = "<div class='alert alert-success'>
                 <button class='close' data-dismiss='alert'>&times;</button>
-                We've sent an email to $email.
-                Please click on the password reset link in the email to generate new password.
+                Nous vous avons envoyé un mail $email.
+                Cliquez sur le lien du mail pour créer un nouveau mot de passe.
                 </div>";
     } else {
         $msg = "<div class='alert alert-danger'>
                 <button class='close' data-dismiss='alert'>&times;</button>
-                <strong>Sorry!</strong>  this email not found.
+                <strong>Désolé!</strong>  Cet email n'existe pas.
                 </div>";
     }
 }
@@ -53,12 +54,9 @@ if (isset($_POST['btn-submit'])) {
 <html>
 
 <head>
-    <title>Forgot Password</title>
-    <!-- Bootstrap -->
-    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
-    <link href="bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" media="screen">
-    <link href="assets/styles.css" rel="stylesheet" media="screen">
-    <link rel='shortcut icon' href='images/favicon.ico' type='image/x-icon'/ >
+  <meta charset="UTF-8">
+    <title>Accenture | Mot de passe oublié</title>
+        <?php require 'header.inc.php'; ?>
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
   <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
@@ -66,10 +64,16 @@ if (isset($_POST['btn-submit'])) {
 </head>
 
 <body id="login">
-    <div class="container">
+  <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+          <a class="brand" id="app-name" href="#"><img src="./images/logo-accenture.png" alt="Logo Accenture"> eTélétravail Application </a>
+      </div>
+  </div>
+
+    <div class="container" id="con2">
 
         <form class="form-signin" method="post">
-            <h2 class="form-signin-heading">Forgot Password</h2>
+            <h2 class="form-signin-heading">Mot de passe oublié</h2>
             <hr />
             <?php
             if (isset($msg)) {
@@ -77,14 +81,15 @@ if (isset($_POST['btn-submit'])) {
             } else {
             ?>
             <div class='alert alert-info'>
-                Please enter your email address. You will receive a link to create a new password via email.!
+              Entrez votre adresse email. Vous recevrez un lien pour créerun nouveau mot de passe par mail.
+
             </div>
             <?php
             }
             ?>
             <input type="email" class="input-block-level" placeholder="Email address" name="txtemail" required />
             <hr />
-            <button class="btn btn-danger btn-primary" type="submit" name="btn-submit">Generate new Password</button>
+            <button class="btn btn-danger btn-primary" type="submit" name="btn-submit">Créez un nouveau mot de passe</button>
         </form>
     </div>
     <!-- /container -->

@@ -20,12 +20,15 @@ $db = new PDO('mysql:host=localhost;dbname=dbtest;charset=utf8mb4', 'root', 'roo
 <!DOCTYPE html>
 <html class="no-js">
 
-<?php require 'header.inc.php'; ?>
-
+<head>
+  <meta charset="UTF-8">
+    <title>Accenture | Se déconnecter</title>
+    <?php require 'header.inc.php'; ?>
+</head>
 <body>
   <?php require 'navbar.inc.php'; ?>
     <div class="container" id="con2">
-        <h2 class="form-request-heading">My Requests</h2>
+        <h2 class="form-request-heading">Mes demandes</h2>
         <hr />
         <!-- <script>
 
@@ -40,7 +43,7 @@ $db = new PDO('mysql:host=localhost;dbname=dbtest;charset=utf8mb4', 'root', 'roo
                 <thead>
                     <tr>
                         <th>Date</th>
-                        <th>Validate</th>
+                        <th>Valider</th>
                         <th>Message</th>
                     </tr>
                 </thead>
@@ -50,8 +53,19 @@ $db = new PDO('mysql:host=localhost;dbname=dbtest;charset=utf8mb4', 'root', 'roo
                 $stmt = $db->query('SELECT * FROM tbl_request WHERE userid = '.$userid.' ORDER BY id DESC');
                 while ($request = $stmt->fetch()) {
                     echo '<tr>';
-                    echo '<td>'.$request['date'].'</td>';
-                    echo '<td>'.$request['validate'].'</td>';
+                    echo '<td width=100>'.$request['date'].'</td>';
+                    echo '<td width=100>';
+                    if ($request['validate'] == "Attendre") {
+                        echo '<strong style="color:green">Attendre</strong>';
+                    } else {
+                        if ($request['validate'] == "Accepté") {
+                            echo '<strong style="color:blue">Accepté</strong>';
+                        } else {
+                            echo '<strong style="color:red">Refusé</strong>';
+                        }
+                    }
+
+                    // echo '<td>'.$request['validate'].'</td>';
                     echo '<td>'.$request['message'].'</td>';
                     echo '</tr>';
                 }

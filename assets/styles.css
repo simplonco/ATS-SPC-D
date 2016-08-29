@@ -9,7 +9,7 @@ body {
 /** Login Page **/
 
 #login {
-    padding-top: 40px;
+    /*padding-top: 40px;*/
     padding-bottom: 40px;
 }
 #login .form-signin {
@@ -201,10 +201,19 @@ body {
 .form-label {
     color: azure;
 }
+#app-name {
+  font-family: 'Droid Serif', serif;
+  font-size: 18px;
+  color: #003398;
+}
+
 #con {
     padding-top: 60px;
     width: 60%;
 }
 #con2 {
     padding-top: 60px;
+}
+#btn-admin {
+  width: 60px;;
 }

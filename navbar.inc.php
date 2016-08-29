@@ -6,7 +6,7 @@
                 <span class="icon-bar"></span>
             </a>
 
-            <a class="brand" href="#"><img src="./images/logo-accenture.png" alt="Logo Accenture"></a>
+            <a class="brand" id="app-name" href="#"><img src="./images/logo-accenture.png" alt="Logo Accenture"> eTélétravail Application </a>
             <div class="nav-collapse collapse">
                 <ul class="nav pull-right">
                     <li class="dropdown">
@@ -15,9 +15,9 @@
                         </a>
                         <ul class="dropdown-menu">
                             <li>
-                                <a tabindex="-1" href="home.php">Add Request</a>
-                                <a tabindex="-1" href="myrequest.php">My Requests</a>
-                                <a tabindex="-1" href="logout.php">Logout</a>
+                                <a tabindex="-1" href="home.php">Ajouter une demande</a>
+                                <a tabindex="-1" href="myrequest.php">Mes demandes</a>
+                                <a tabindex="-1" href="logout.php">Se déconnecter</a>
                             </li>
                         </ul>
                     </li>

@@ -22,7 +22,7 @@ if (isset($_GET['id']) && isset($_GET['code'])) {
             if ($cpass !== $pass) {
                 $msg = "<div class='alert alert-block'>
                         <button class='close' data-dismiss='alert'>&times;</button>
-                        <strong>Sorry!</strong>  Password Doesn't match.
+                        <strong>Sorry!</strong>  Mot de passe incorrect.
                         </div>";
             } else {
                 $password = md5($cpass);
@@ -31,7 +31,7 @@ if (isset($_GET['id']) && isset($_GET['code'])) {
 
                 $msg = "<div class='alert alert-success'>
                         <button class='close' data-dismiss='alert'>&times;</button>
-                        Password Changed.
+                        Mot de passe changé.
                         </div>";
                 header('refresh:5;index.php');
             }
@@ -39,7 +39,7 @@ if (isset($_GET['id']) && isset($_GET['code'])) {
     } else {
         $msg = "<div class='alert alert-success'>
                 <button class='close' data-dismiss='alert'>&times;</button>
-                No Account Found, Try again
+                Informations incorrectes, merci de réessayer
                 </div>";
     }
 }
@@ -49,12 +49,9 @@ if (isset($_GET['id']) && isset($_GET['code'])) {
 <html>
 
 <head>
-    <title>Password Reset</title>
-    <!-- Bootstrap -->
-    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
-    <link href="bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" media="screen">
-    <link href="assets/styles.css" rel="stylesheet" media="screen">
-    <link rel='shortcut icon' href='images/favicon.ico' type='image/x-icon'/ >
+  <meta charset="UTF-8">
+    <title>Accenture | Réinitialiser le mot de passe</title>
+        <?php require 'header.inc.php'; ?>
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
@@ -62,23 +59,28 @@ if (isset($_GET['id']) && isset($_GET['code'])) {
 </head>
 
 <body id="login">
-    <div class="container">
+  <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+          <a class="brand" id="app-name" href="#"><img src="./images/logo-accenture.png" alt="Logo Accenture"> eTélétravail Application </a>
+      </div>
+  </div>
+    <div class="container" id="con2>
         <div class='alert alert-success'>
-            <strong>Hello !</strong>
-            <?php echo $rows['userName'] ?> you are here to reset your forgetton password.
+            <strong>Bonjour !</strong>
+            <?php echo $rows['userName'] ?> vous êtes ici pour réinitialiser votre mot de passe oublié.
         </div>
         <form class="form-signin" method="post">
-            <h3 class="form-signin-heading">Password Reset.</h3>
+            <h3 class="form-signin-heading">Réinitialiser le mot de passe.</h3>
             <hr />
             <?php
             if (isset($msg)) {
                 echo $msg;
             }
             ?>
-            <input type="password" class="input-block-level" placeholder="New Password" name="pass" required />
-            <input type="password" class="input-block-level" placeholder="Confirm New Password" name="confirm-pass" required />
+            <input type="password" class="input-block-level" placeholder="Nouveau mot de passe" name="pass" required />
+            <input type="password" class="input-block-level" placeholder="Confirmer le nouveau mot de passe" name="confirm-pass" required />
             <hr />
-            <button class="btn btn-large btn-primary" type="submit" name="btn-reset-pass">Reset Your Password</button>
+            <button class="btn btn-large btn-primary" type="submit" name="btn-reset-pass">Réinitialisez votre mot de passe</button>
         </form>
     </div>
     <!-- /container -->

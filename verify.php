@@ -26,14 +26,14 @@ if (isset($_GET['id']) && isset($_GET['code'])) {
             $msg = "
                    <div class='alert alert-success'>
                      <button class='close' data-dismiss='alert'>&times;</button>
-                     <strong>WoW !</strong>  Your Account is Now Activated : <a href='index.php'>Login here</a>
+                     <strong>WoW !</strong>  Votre compte est maintenant activé: <a href='index.php'>Connectez-vous ici</a>
                    </div>
                    ";
         } else {
             $msg = "
                    <div class='alert alert-error'>
                      <button class='close' data-dismiss='alert'>&times;</button>
-                     <strong>sorry !</strong>  Your Account is allready Activated : <a href='index.php'>Login here</a>
+                     <strong>désolé !</strong>  Votre compte est déjà activé: <a href='index.php'>Connectez-vous ici</a>
                    </div>
                    ";
         }
@@ -41,7 +41,7 @@ if (isset($_GET['id']) && isset($_GET['code'])) {
         $msg = "
                <div class='alert alert-error'>
                  <button class='close' data-dismiss='alert'>&times;</button>
-                 <strong>sorry !</strong>  No Account Found : <a href='signup.php'>Signup here</a>
+                 <strong>désolé !</strong>  Aucun compte trouvé: <a href='signup.php'>Signup here</a>
                </div>
                ";
     }
@@ -51,10 +51,13 @@ if (isset($_GET['id']) && isset($_GET['code'])) {
 <!DOCTYPE html>
 <html>
 
-<?php require 'header.inc.php'; ?>
-
+<head>
+  <meta charset="UTF-8">
+    <title>Accenture | eTélétravail</title>
+    <?php require 'header.inc.php'; ?>
+</head>
 <body id="login">
-    <div class="container">
+    <div class="container" id="con2">
     <?php
     if (isset($msg)) {
         echo $msg;

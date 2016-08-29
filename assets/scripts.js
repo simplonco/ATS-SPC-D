@@ -54,12 +54,15 @@ $(function () {
         monthNamesShort: ["Janv", "Fevr", "Mars", "Avril", "Mai", "Juin", "Juil", "Aout", "Sept", "Oct", "Nov", "Dec"],
         firstDay: 1,
 
-        yearRange: "2016:2016",
+        yearRange: "2016:2018",
         minDate: 2,
         changeMonth: true,
         beforeShowDay: function(date) {
             var day = date.getDay();
-            var array = JoursFeries(2016);
+            var array1 = JoursFeries(2016);
+            var array2 = JoursFeries(2017);
+            var array3 = JoursFeries(2018);
+            var array = array1.concat(array2,array3);
             for (var i = 0; i < array.length; i++) {
                 array[i] = jQuery.datepicker.formatDate('dd-mm-yy', array[i]);
             }
