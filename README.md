@@ -5,8 +5,8 @@
 ### Online Beta Version: 1.02
 >[Teletravail](http://www.eteletravail.byethost33.com/)
 
-## Authors
+## Auteurs
 
-- HAMOUI Antoine
-- SABA Chadi
-- ISSA Berivan
+>- HAMOUI Antoine
+>- SABA Chadi
+>- ISSA Berivan
