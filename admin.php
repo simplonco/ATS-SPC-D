@@ -15,7 +15,34 @@ $row = $stmt->fetch(PDO::FETCH_ASSOC);
 $userid = $row['userID'];
 $username = $row['userName'];
 
+// localhost db configuration
 $db = new PDO('mysql:host=localhost;dbname=dbtest;charset=utf8mb4', 'root', 'root');
+
+$nombre_de_msg_par_page = 11; // On met dans une variable le nombre de lines qu'on veut par page
+
+// On récupère le nombre total de lines
+$reponse=$db->query('SELECT COUNT(*) AS contenu FROM tbl_request');
+$total_messages = $reponse->fetch();
+$nombre_messages =$total_messages['contenu'];
+
+
+// on détermine le nombre de pages
+$nb_pages = ceil($nombre_messages / $nombre_de_msg_par_page);
+// Maintenant, on va afficher les messages
+// ---------------------------------------
+
+if (isset($_GET['page']))
+{
+    $page = $_GET['page']; // On récupère le numéro de la page indiqué dans l'adresse (livredor.php?page=4)
+}
+else // La variable n'existe pas, c'est la première fois qu'on charge la page
+{
+    $page = 1; // On se met sur la page 1 (par défaut)
+}
+
+// On calcule le numéro du premier message qu'on prend pour le LIMIT de MySQL
+$premierMessageAafficher = ($page - 1) * $nombre_de_msg_par_page;
+
 ?>
 
 <!DOCTYPE html>
@@ -24,6 +51,8 @@ $db = new PDO('mysql:host=localhost;dbname=dbtest;charset=utf8mb4', 'root', 'roo
 
 <head>
   <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Accenture | Administrateur</title>
     <?php require 'header.inc.php'; ?>
 </head>
@@ -46,7 +75,7 @@ $db = new PDO('mysql:host=localhost;dbname=dbtest;charset=utf8mb4', 'root', 'roo
                           </a>
                           <ul class="dropdown-menu">
                               <li>
-                                  <a tabindex="-1" href="admin.php?order=tbl_request.id&az=DESC">Toutes les demandes</a>
+                                  <a tabindex="-1" href="admin.php?order=tbl_request.id&az=DESC&page=1">Toutes les demandes</a>
                                   <a tabindex="-1" href="logout.php">Se deconnecter</a>
                               </li>
                           </ul>
@@ -68,25 +97,26 @@ $db = new PDO('mysql:host=localhost;dbname=dbtest;charset=utf8mb4', 'root', 'roo
   </div>
     <div class="container" id="con2">
         <h2 class="form-request-heading">Toutes les demandes</h2>
+        <p align="right"><a class="btn btn-warning" href="generate_pdf.php" target="_blank">Generate PDF</a></p>
         <hr />
         <div class="alert alert-info">
             <table class="table table-striped table-bordered">
                 <thead>
                     <tr>
-                        <th>UTILISATEURS
-                        <a href="admin.php?order=tbl_users.userName&az=DESC"><i class="icon-arrow-down"></i></a>
-                        <a href="admin.php?order=tbl_users.userName&az=ASC"><i class="icon-arrow-up"></i></a></th>
-                        <th>DATE
-                        <a href="admin.php?order=str_to_date(tbl_request.date,'%d-%m-%y')&az=DESC">
+                        <th>Utilisateurs
+                        <a href="admin.php?order=tbl_users.userName&az=DESC&page=<?php echo $page;?>"><i class="icon-arrow-down"></i></a>
+                        <a href="admin.php?order=tbl_users.userName&az=ASC&page=<?php echo $page;?>"><i class="icon-arrow-up"></i></a></th>
+                        <th>Date
+                        <a href="admin.php?order=str_to_date(tbl_request.date,'%d-%m-%y')&az=DESC&page=<?php echo $page;?>">
                         <i class="icon-arrow-down"></i></a>
-                        <a href="admin.php?order=str_to_date(tbl_request.date,'%d-%m-%y')&az=ASC">
+                        <a href="admin.php?order=str_to_date(tbl_request.date,'%d-%m-%y')&az=ASC&page=<?php echo $page;?>">
                         <i class="icon-arrow-up"></i></a>
                         </th>
-                        <th>MESSAGE</th>
-                        <th>VALIDER
-                        <a href="admin.php?order=tbl_request.validate&az=DESC">
+                        <th>Message</th>
+                        <th>Valider
+                        <a href="admin.php?order=tbl_request.validate&az=DESC&page=<?php echo $page;?>">
                         <i class="icon-arrow-down"></i></a>
-                        <a href="admin.php?order=tbl_request.validate&az=ASC">
+                        <a href="admin.php?order=tbl_request.validate&az=ASC&page=<?php echo $page;?>">
                         <i class="icon-arrow-up"></i></a>
                         </th>
                     </tr>
@@ -95,7 +125,7 @@ $db = new PDO('mysql:host=localhost;dbname=dbtest;charset=utf8mb4', 'root', 'roo
                 <tbody>
                 <?php
                 if (empty($_GET['order']) && empty($_GET['az'])) {
-                    $user->redirect("admin.php?order=tbl_request.id&az=DESC");
+                    $user->redirect("admin.php?order=tbl_request.id&az=DESC&page=<?php echo $page;?>");
                 }
                 if (isset($_GET['order']) && isset($_GET['az'])){
                   $statusY = "Accepté";
@@ -111,7 +141,7 @@ $db = new PDO('mysql:host=localhost;dbname=dbtest;charset=utf8mb4', 'root', 'roo
                   // $order = "tbl_request.id";
                   // $az = "DESC";
 
-                  $stmt = $db->query("SELECT tbl_request.id, tbl_request.date, tbl_request.message, tbl_request.validate, tbl_request.tokenCode As code, tbl_users.userName AS userN FROM tbl_request right JOIN tbl_users ON tbl_request.userid = tbl_users.userId ORDER BY $order $az");
+                  $stmt = $db->query("SELECT tbl_request.id, tbl_request.date, tbl_request.message, tbl_request.validate, tbl_request.tokenCode As code, tbl_users.userName AS userN FROM tbl_request right JOIN tbl_users ON tbl_request.userid = tbl_users.userId ORDER BY $order $az LIMIT $premierMessageAafficher ,$nombre_de_msg_par_page");
 
                   while ($request = $stmt->fetch()) {
                     if (!empty($request['date'])) {
@@ -139,8 +169,19 @@ $db = new PDO('mysql:host=localhost;dbname=dbtest;charset=utf8mb4', 'root', 'roo
                 ?>
                 </tbody>
             </table>
+            <div align="center">
+              <?php
+              // Puis on fait une boucle pour écrire les liens vers chacune des pages
+              echo 'Page : ';
+              for ($i = 1 ; $i <= $nb_pages ; $i++)
+              {
+                  echo '<a href="admin.php?order=tbl_request.id&az=DESC&page=' . $i . '">' . $i . '</a> ';
+              }
+              ?>
+            </div>
         </div>
     </div>
+
     <!-- /container -->
     <?php require 'footer.inc.php'; ?>
     <?php require 'script.inc.php'; ?>

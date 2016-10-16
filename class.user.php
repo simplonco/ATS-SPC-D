@@ -94,6 +94,7 @@ class USER
     {
         require_once 'mailer/class.phpmailer.php';
         $mail = new PHPMailer();
+        $mail->CharSet = "UTF-8";
         $mail->IsSMTP();
         $mail->SMTPDebug = 0;
         $mail->SMTPAuth = true;
@@ -102,7 +103,7 @@ class USER
         $mail->Port = 465;
         $mail->AddAddress($email);
         $mail->Username = '16accenture@gmail.com';
-        $mail->Password = '*****';
+        $mail->Password = '*********';
         $mail->SetFrom('16accenture@gmail.com', 'Accenture');
         $mail->AddReplyTo('16accenture@gmail.com', 'Accenture');
         $mail->Subject = $subject;

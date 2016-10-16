@@ -32,7 +32,7 @@ if (isset($_POST['btn-signup'])) {
             $id = $key;
 
             $message = "
-                        <img src='http://www.accenture.com/t00010101T000000__w__/fr-fr/_acnmedia/Accenture/Dev/ComponentImages/logo-accenture.png'>
+                        <img src='http://www.accenture.com/t00010101T000000__w__/fr-fr/_acnmedia/Accenture/Dev/ComponentImages/logo-accenture.png' alt='Accenture'>
                         <br /><br />
                         Bonjour $uname,
                         <br /><br />
@@ -64,6 +64,8 @@ if (isset($_POST['btn-signup'])) {
 
 <head>
   <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Accenture | S'enregistrer</title>
         <?php require 'header.inc.php'; ?>
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->

@@ -1,4 +1,5 @@
 <?php
+session_start();
 require_once 'class.user.php';
 $user = new USER();
 
@@ -22,7 +23,7 @@ if (isset($_GET['id']) && isset($_GET['code'])) {
             if ($cpass !== $pass) {
                 $msg = "<div class='alert alert-block'>
                         <button class='close' data-dismiss='alert'>&times;</button>
-                        <strong>Sorry!</strong>  Mot de passe incorrect.
+                        <strong>désolé!</strong>  Mot de passe incorrect.
                         </div>";
             } else {
                 $password = md5($cpass);
@@ -50,6 +51,8 @@ if (isset($_GET['id']) && isset($_GET['code'])) {
 
 <head>
   <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Accenture | Réinitialiser le mot de passe</title>
         <?php require 'header.inc.php'; ?>
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
@@ -64,13 +67,13 @@ if (isset($_GET['id']) && isset($_GET['code'])) {
           <a class="brand" id="app-name" href="#"><img src="./images/logo-accenture.png" alt="Logo Accenture"> eTélétravail Application </a>
       </div>
   </div>
-    <div class="container" id="con2>
+    <div class="container">
         <div class='alert alert-success'>
             <strong>Bonjour !</strong>
             <?php echo $rows['userName'] ?> vous êtes ici pour réinitialiser votre mot de passe oublié.
         </div>
         <form class="form-signin" method="post">
-            <h3 class="form-signin-heading">Réinitialiser le mot de passe.</h3>
+            <h4 class="form-signin-heading">Réinitialiser le mot de passe</h4>
             <hr />
             <?php
             if (isset($msg)) {

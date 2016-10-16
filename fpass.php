@@ -21,6 +21,8 @@ if (isset($_POST['btn-submit'])) {
         $stmt->execute(array(':token' => $code, 'email' => $email));
 
         $message = "
+                  <img src='http://www.accenture.com/t00010101T000000__w__/fr-fr/_acnmedia/Accenture/Dev/ComponentImages/logo-accenture.png' alt='Accenture'>
+                  <br /><br />
                    Bonjour , $email
                    <br /><br />
                    Nous avons recu votre demande de réinitialisation de mot de passe,
@@ -28,11 +30,11 @@ if (isset($_POST['btn-submit'])) {
                    <br /><br />
                    Cliquer sur le lien suivant pour réinitialiser votre mot de passe.
                    <br /><br />
-                   <a href='http://localhost/x/resetpass.php?id=$id&code=$code'>Cliquer ici pour réinitialiser votre mot de passe</a>
+                   <a href='http://localhost/ATS-SPC-D/resetpass.php?id=$id&code=$code'>Cliquer ici pour réinitialiser votre mot de passe</a>
                    <br /><br />
                    Merci.
                    ";
-        $subject = 'Password Reset';
+        $subject = 'Reinitialiser le mot de passe';
 
         $user->send_mail($email, $message, $subject);
 
@@ -73,7 +75,7 @@ if (isset($_POST['btn-submit'])) {
     <div class="container" id="con2">
 
         <form class="form-signin" method="post">
-            <h2 class="form-signin-heading">Mot de passe oublié</h2>
+            <h3 class="form-signin-heading">Mot de passe oublié</h3>
             <hr />
             <?php
             if (isset($msg)) {

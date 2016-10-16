@@ -61,7 +61,7 @@ if (isset($_POST['btn-request'])) {
         $messages = "
                     Cher Madame,
                     <br /><br />
-                    Je suis $username,<br />merci de confirmer ma demande pour ce jour: $date<br /><br />
+                    Je suis <b>$username</b>,<br />merci de confirmer ma demande pour ce jour: $date<br /><br />
                     Notes: $message<br/><br/>
                     <font color=blue>Pour accepter la demande, merci de cliquer sur le lien suivant</font>
                     <br />
@@ -92,6 +92,8 @@ if (isset($_POST['btn-request'])) {
 <html class="no-js">
 <head>
   <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Accenture | eTélétravail</title>
     <?php require 'header.inc.php'; ?>
 </head>
